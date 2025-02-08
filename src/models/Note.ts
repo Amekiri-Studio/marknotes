@@ -38,12 +38,12 @@ const Note = sequelize.define('notes', {
     createDate: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        defaultValue: DataTypes.NOW
     },
     lastEditDate: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        defaultValue: DataTypes.NOW
     },
     noteStatus: {
         type: DataTypes.SMALLINT,

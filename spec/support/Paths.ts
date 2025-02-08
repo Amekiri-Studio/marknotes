@@ -1,5 +1,5 @@
 import jetPaths from 'jet-paths';
-import Paths from '@src/routes/common/Paths';
+import Paths from '@src/controllers/common/Paths';
 
 
 export default jetPaths(Paths);

@@ -16,6 +16,6 @@ export const authenticate = async () => {
     }
 }
 
-export const syncModels = async (option: any) => {
+export const syncModels = async (option: any | null | undefined) => {
     return await sequelize.sync(option);
 }
