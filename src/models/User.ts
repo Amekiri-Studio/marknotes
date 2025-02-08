@@ -1,35 +1,35 @@
-import { isString } from 'jet-validators';
+import { Sequelize, Model, DataTypes } from 'sequelize'
+import { sequelize } from '@src/database'
+import { Status } from '@src/common/constants';
 
-import schema from '@src/util/schema';
-import { isRelationalKey } from '@src/util/validators';
-
-
-/******************************************************************************
-                                  Types
-******************************************************************************/
-
-export interface IUser {
-  id: number;
-  name: string;
-  email: string;
-  created: Date;
-}
-
-
-/******************************************************************************
-                                 Setup
-******************************************************************************/
-
-const User = schema<IUser>({
-  id: isRelationalKey,
-  name: isString,
-  created: Date,
-  email: isString,
+const User = sequelize.define('users', {
+	uid: {
+		type: DataTypes.BIGINT.UNSIGNED,
+		primaryKey: true,
+		autoIncrement: true
+	},
+	username: {
+		type: DataTypes.STRING,
+		unique: true,
+		allowNull: false
+	},
+	nickname: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	password: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	passwordSalt: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	userStatus: {
+		type: DataTypes.SMALLINT,
+		allowNull: false,
+		defaultValue: Status.Normal
+	}
 });
-
-
-/******************************************************************************
-                                Export default
-******************************************************************************/
 
 export default User;

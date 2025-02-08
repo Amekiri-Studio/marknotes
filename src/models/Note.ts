@@ -1,9 +1,10 @@
 import { Sequelize, Model, DataTypes } from 'sequelize'
 import { sequelize } from '@src/database'
+import { Status } from '@src/common/constants';
 
 const Note = sequelize.define('notes', {
-    id: {
-        type: DataTypes.BIGINT,
+    nid: {
+        type: DataTypes.BIGINT.UNSIGNED,
         primaryKey: true,
         autoIncrement: true
     },
@@ -11,9 +12,14 @@ const Note = sequelize.define('notes', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    creator: {
+        type: DataTypes.BIGINT.UNSIGNED,
+        allowNull: false
+    },
     language: {
         type: DataTypes.CHAR,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 'zh-cn'
     },
     content: {
         type: DataTypes.TEXT,
@@ -38,7 +44,19 @@ const Note = sequelize.define('notes', {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    noteStatus: {
+        type: DataTypes.SMALLINT,
+        allowNull: false,
+        defaultValue: Status.Normal
     }
+}, {
+    indexes: [
+        {
+            type: 'FULLTEXT',
+            fields: ['title', 'content']
+        }
+    ]
 })
 
 export default Note;
