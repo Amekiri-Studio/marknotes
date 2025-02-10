@@ -13,7 +13,10 @@ import Env from '@src/common/Env';
 import HttpStatusCodes from '@src/common/HttpStatusCodes';
 import { RouteError } from '@src/common/route-errors';
 import { NodeEnvs } from '@src/common/constants';
+import routes from '@src/routes';
 
+import swaggerUi from 'swagger-ui-express'
+import swaggerSpec from '../swaggerConfig';
 
 /******************************************************************************
                                 Variables
@@ -40,7 +43,7 @@ if (Env.NodeEnv === NodeEnvs.Production.valueOf()) {
 
 // Add APIs, must be after middleware
 // app.use(Paths.Base, BaseRouter);
-
+app.use('/v1', routes);
 // Add error handler
 app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
   if (Env.NodeEnv !== NodeEnvs.Test.valueOf()) {
@@ -69,6 +72,8 @@ app.use(express.static(staticDir));
 app.get('/', (_: Request, res: Response) => {
   res.send('Marknotes server is on running');
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Redirect to login if not logged in.
 // app.get('/users', (_: Request, res: Response) => {

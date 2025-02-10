@@ -10,13 +10,13 @@ class UserController {
 
     static async createService() {
         if (!this.userService) {
-            this.userService = await UserService.createService();
+            UserController.userService = await UserService.createService();
         }
     }
 
     static async add(req: IReq, res: IRes) {
         try {
-            await this.createService();
+            await UserController.createService();
             const {username, nickname, password} = req.body;
 
             if (!username || !nickname || !password) {
@@ -52,7 +52,9 @@ class UserController {
 
     static async update(req: IReq, res: IRes) {
         try {
-            await this.createService();
+            await UserController.createService();
+            const { userInfoType, value } = req.body;
+            
         } catch (error) {
             console.error(error);
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -65,6 +67,10 @@ class UserController {
 
     static async remove(req: IReq, res: IRes) {
 
+    }
+
+    static async login(req: IReq, res: IRes) {
+        
     }
 }
 

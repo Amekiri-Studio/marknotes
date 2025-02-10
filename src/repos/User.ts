@@ -1,11 +1,17 @@
 import User from "@src/models/User";
 import { sequelize, authenticate, syncModels } from '@src/database'
+import { Status } from "@src/common/constants";
 
 export interface IUserRepository {
     addUser: (UserData: {username: string, nickname: string, password: string, passwordSalt: string}) => Promise<any>;
     getUserById: (uid: number) => Promise<any>;
     getUserByUsername: (username: string) => Promise<any>;
     updateUsername: (uid: number ,username: string) => Promise<any>;
+    updateNickname: (uid: number, nickname: string) => Promise<any>;
+    updatePassword: (uid: number, password: string) => Promise<any>;
+    updateAvatar: (uid: number, avatar: string) => Promise<any>;
+    removeUser: (uid: number) => Promise<any>;
+    queryUsernameAndPwd: (username: string, password: string) => Promise<any>;
 }
 
 export class UserRepository implements IUserRepository {
@@ -23,7 +29,12 @@ export class UserRepository implements IUserRepository {
     }
 
     async getUserById(uid: number) {
-        return await User.findByPk(uid)
+        return await User.findOne({
+            where: {
+                uid,
+                userStatus: Status.Normal
+            }
+        })
     }
 
     async getUserByUsername(username: string) {
@@ -63,6 +74,35 @@ export class UserRepository implements IUserRepository {
             }
         })
     }
+
+    async updateAvatar(uid: number, avatar: string) {
+        return await User.update({
+            avatar
+        }, {
+            where: {
+                uid
+            }
+        })
+    }
+
+    async removeUser(uid: number) {
+        return await User.update({
+            userStatus: Status.Removed
+        }, {
+            where: {
+                uid
+            }
+        })
+    }
+
+    async queryUsernameAndPwd(username: string, password: string) {
+        return await User.findOne({
+            where: {
+                username,
+                password
+            }
+        })
+    }
 }
 
-export default IUserRepository
+export default IUserRepository;
