@@ -6,7 +6,6 @@ import UserInfoType from "@src/common/UserInfoType";
 import IUserService, { UserService } from "@src/services/UserService";
 import multer from 'multer'
 import { decodeToken, generateToken } from "@src/util/token";
-import { JwtPayload } from "jsonwebtoken";
 import FailureReason from "@src/common/Reason";
 
 class UserController {
@@ -141,6 +140,23 @@ class UserController {
                 return;
             }
 
+            const {oldPassword, newPassword} = req.body;
+
+            const result = await UserController.userService.updatePassword(tokenPayload.uid, oldPassword, newPassword);
+
+            if (!result.success) {
+                res.json({
+                    code: RetCode.FAILURE,
+                    reason: result.reason,
+                    message: result.message
+                })
+            }
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'Update password successfully',
+                data: result.data
+            })
         } catch (error) {
             throw error;
         }

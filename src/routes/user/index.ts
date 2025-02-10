@@ -122,10 +122,10 @@ router.put(Paths.update, UserController.update);
  *                  schema:
  *                      type: object
  *                      properties:
- *                          old:
+ *                          oldPassword:
  *                              type: string
  *                              description: 旧密码
- *                          new:
+ *                          newPassword:
  *                              type: string
  *                              description: 新密码
  *      responses:
