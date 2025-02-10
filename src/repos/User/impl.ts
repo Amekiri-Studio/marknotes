@@ -13,8 +13,8 @@ class UserRepository implements IUserRepository {
         return new UserRepository();
     }
 
-    async addUser(UserData: {username: string, nickname: string, password: string, passwordSalt: string}) {
-        return await User.create(UserData);
+    async addUser(userData: {username: string, nickname: string, password: string, passwordSalt: string}) {
+        return await User.create(userData);
     }
 
     async getUserById(uid: number) {
