@@ -13,9 +13,14 @@ export const authenticate = async () => {
         console.log('Connection has been established successfully.');
     } catch (error) {
         console.error('Unable to connect to the database:', error);
+        throw error;
     }
 }
 
 export const syncModels = async (option: any | null | undefined) => {
     return await sequelize.sync(option);
+}
+
+export const close = async () => {
+    await sequelize.close();
 }

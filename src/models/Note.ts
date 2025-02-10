@@ -35,16 +35,6 @@ const Note = sequelize.define('notes', {
         allowNull: false,
         defaultValue: 0
     },
-    createDate: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    lastEditDate: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
     noteStatus: {
         type: DataTypes.SMALLINT,
         allowNull: false,

@@ -1,8 +1,8 @@
 export default {
-    host: 'localhost',
+    host: '10.22.21.1',
     port: 3306,
     database: 'marknotes',
     username: 'root',
-    password: '123456',
+    password: 'Asd2001',
     dialect: 'mysql'
 } as const;

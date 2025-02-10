@@ -1,26 +1,15 @@
 import User from "@src/models/User";
 import { sequelize, authenticate, syncModels } from '@src/database'
 import { Status } from "@src/common/constants";
+import IUserRepository from ".";
 
-export interface IUserRepository {
-    addUser: (UserData: {username: string, nickname: string, password: string, passwordSalt: string}) => Promise<any>;
-    getUserById: (uid: number) => Promise<any>;
-    getUserByUsername: (username: string) => Promise<any>;
-    updateUsername: (uid: number ,username: string) => Promise<any>;
-    updateNickname: (uid: number, nickname: string) => Promise<any>;
-    updatePassword: (uid: number, password: string) => Promise<any>;
-    updateAvatar: (uid: number, avatar: string) => Promise<any>;
-    removeUser: (uid: number) => Promise<any>;
-    queryUsernameAndPwd: (username: string, password: string) => Promise<any>;
-}
-
-export class UserRepository implements IUserRepository {
+class UserRepository implements IUserRepository {
     private constructor() {
         
     }
 
     static async createRepository() {
-        await Promise.all([authenticate(), syncModels({force: true})]);
+        await Promise.all([authenticate(), syncModels({force: false})]);
         return new UserRepository();
     }
 
@@ -105,4 +94,4 @@ export class UserRepository implements IUserRepository {
     }
 }
 
-export default IUserRepository;
+export default UserRepository;

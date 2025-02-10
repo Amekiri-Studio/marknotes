@@ -29,11 +29,6 @@ const User = sequelize.define('users', {
 		type: DataTypes.STRING,
 		allowNull: false
 	},
-	createDate: {
-		type: DataTypes.DATE,
-		allowNull: false,
-		defaultValue: DataTypes.NOW
-	},
 	userStatus: {
 		type: DataTypes.SMALLINT,
 		allowNull: false,

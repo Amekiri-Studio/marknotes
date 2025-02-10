@@ -2,8 +2,11 @@
 export default {
     base: '/user',
     add: '/add',
-    get: '/get/:id',
-    update: '/update/:id',
-    remove: '/remove/:id',
+    get: '/get/id/:id',
+    getName: '/get/username/:username',
+    update: '/update',
+    updatePwd: '/update/password',
+    updateAvatar: '/update/avatar',
+    remove: '/remove',
     login: '/login'
 } as const
