@@ -1,24 +1,22 @@
-import { UserRepository, IUserRepository } from "@src/repos/User";
 import { IReq, IRes } from "./common";
-import { getRandomStringByLen } from "@src/util/random";
-import { hashSHA512 } from "@src/util/hash";
 import HttpStatusCodes from "@src/common/HttpStatusCodes";
 import RetCode from "@src/common/RetCode";
 import UserInfoType from "@src/common/UserInfoType";
+import IUserService, { UserService } from "@src/services/UserService";
 
 class UserController {
-    static userRepo: IUserRepository;
+    static userService: IUserService;
     static iterations = 10000;
 
-    static async createUserRepo() {
-        if (!this.userRepo) {
-            this.userRepo = await UserRepository.createRepository();
+    static async createService() {
+        if (!this.userService) {
+            this.userService = await UserService.createService();
         }
     }
 
     static async add(req: IReq, res: IRes) {
         try {
-            await this.createUserRepo();
+            await this.createService();
             const {username, nickname, password} = req.body;
 
             if (!username || !nickname || !password) {
@@ -29,29 +27,15 @@ class UserController {
                 return;
             }
             
-            if (typeof username === 'string' &&
-                typeof nickname === 'string' &&
-                typeof password === 'string'
-            ) {
-                const passwordSalt = getRandomStringByLen(100);
-                const hashPwd = hashSHA512(password, passwordSalt, this.iterations)
+            const addResult = await this.userService.addUser({
+                username, nickname, password
+            })
 
-                const result = await this.userRepo.addUser({
-                    username,
-                    nickname,
-                    password: hashPwd,
-                    passwordSalt
-                })
-
-                res.status(HttpStatusCodes.OK).json({
-                    code: RetCode.SUCCESS,
-                    message: 'Create user successfully',
-                    data: result
-                })
-            }
-            else {
-                res.status(HttpStatusCodes.BAD_REQUEST).json({ code: 400 ,error: 'Data type error' })
-            }
+            res.status(HttpStatusCodes.OK).json({
+                code: RetCode.SUCCESS,
+                message: 'added user successfully',
+                data: addResult
+            })
         } catch (error) {
             console.error(error);
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -68,7 +52,7 @@ class UserController {
 
     static async update(req: IReq, res: IRes) {
         try {
-            await this.createUserRepo();
+            await this.createService();
         } catch (error) {
             console.error(error);
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({

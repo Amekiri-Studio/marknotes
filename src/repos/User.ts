@@ -1,6 +1,5 @@
 import User from "@src/models/User";
 import { sequelize, authenticate, syncModels } from '@src/database'
-import { where } from "sequelize";
 
 export interface IUserRepository {
     addUser: (UserData: {username: string, nickname: string, password: string, passwordSalt: string}) => Promise<any>;
@@ -38,6 +37,26 @@ export class UserRepository implements IUserRepository {
     async updateUsername(uid: number ,username: string) {
         return await User.update({
             username
+        }, {
+            where: {
+                uid
+            }
+        })
+    }
+
+    async updateNickname(uid: number, nickname: string) {
+        return await User.update({
+            nickname
+        }, {
+            where: {
+                uid
+            }
+        });
+    }
+
+    async updatePassword(uid: number, password: string) {
+        return await User.update({
+            password
         }, {
             where: {
                 uid
