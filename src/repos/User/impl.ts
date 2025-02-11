@@ -92,6 +92,15 @@ class UserRepository implements IUserRepository {
             }
         })
     }
+
+    async queryIdAndPwd(uid: number, password: string) {
+        return await User.findOne({
+            where: {
+                uid,
+                password
+            }
+        })
+    }
 }
 
 export default UserRepository;

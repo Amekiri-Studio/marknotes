@@ -154,7 +154,7 @@ class UserService implements IUserService {
     }
 
     async verifyPasshashCorrection(uid: number | any, passhash: string | any) {
-        const result = await this.userRepository.queryUsernameAndPwd(uid, passhash);
+        const result = await this.userRepository.queryIdAndPwd(uid, passhash);
 
         if (!result) {
             return false;

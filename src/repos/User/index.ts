@@ -10,6 +10,7 @@ export interface IUserRepository {
     updateAvatar: (uid: number, avatar: string) => Promise<any>;
     removeUser: (uid: number) => Promise<any>;
     queryUsernameAndPwd: (username: string, password: string) => Promise<any>;
+    queryIdAndPwd: (uid: number, password: string) => Promise<any>;
 }
 
 export { UserRepository };

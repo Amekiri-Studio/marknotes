@@ -248,8 +248,16 @@ class UserController {
             const password = req.body.password;
             const result = await UserController.userService.removeUser(tokenPayload.uid, password);
 
+            if (!result.success) {
+                res.json({
+                    code: RetCode.FAILURE,
+                    message: result.message,
+                    reason: result.reason
+                })
+            }
+
             res.json({
-                coed: RetCode.SUCCESS,
+                code: RetCode.SUCCESS,
                 message: 'Remove user successfully',
                 data: result
             })
@@ -311,7 +319,7 @@ class UserController {
         
         const decodePayload: any = decodeToken(authorizationHeader);
 
-        if (!UserController.userService.verifyPasshashCorrection(decodePayload.uid , decodePayload.pwdhas)) {
+        if (!UserController.userService.verifyPasshashCorrection(decodePayload.uid , decodePayload.password)) {
             res.json({
                 code: RetCode.FAILURE,
                 reason: FailureReason.TOKEN_INVALID,
