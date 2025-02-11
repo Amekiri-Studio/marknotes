@@ -1,6 +1,6 @@
 import Note from "@src/models/Note";
 import { sequelize, authenticate, syncModels } from '@src/database'
-import { Status } from "@src/common/constants";
+import { Publicness, Status } from "@src/common/constants";
 import INoteRepository from ".";
 
 class NoteRepository implements INoteRepository {
@@ -27,27 +27,64 @@ class NoteRepository implements INoteRepository {
     }
 
     async updateNote(nid: number, creator: number, noteData: {title: string, content: string}) {
-
+        return await Note.update({
+            title: noteData.title,
+            content: noteData.content
+        }, {
+            where: {
+                nid, creator
+            }
+        })
     }
 
     async setNotePublic(nid: number, creator: number) {
-
+        return await Note.update({
+            isShare: Publicness.PUBLIC
+        }, {
+            where: {
+                nid, creator
+            }
+        })
     }
 
     async setNotePrivate(nid: number, creator: number) {
-
+        return await Note.update({
+            isShare: Publicness.PRIVATE
+        }, {
+            where: {
+                nid, creator
+            }
+        })
     }
 
     async setNotePublicEdit(nid: number, creator: number) {
-
+        return await Note.update({
+            allowPublicEdit: Publicness.PUBLIC
+        }, {
+            where: {
+                nid, creator
+            }
+        })
     }
 
     async setNotePrivateEdit(nid: number, creator: number) {
-
+        return await Note.update({
+            allowPublicEdit: Publicness.PRIVATE
+        }, {
+            where: {
+                nid, creator
+            }
+        })
     }
 
     async removeNote(nid: number, creator: number) {
-
+        return await Note.update({
+            noteStatus: Status.Removed
+        }, {
+            where: {
+                nid, creator
+            }
+        })
     }
 }
 

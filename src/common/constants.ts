@@ -22,3 +22,8 @@ export enum Permission {
   Tag = 4,
   User = 8
 }
+
+export enum Publicness {
+  PRIVATE = 0,
+  PUBLIC = 1
+}

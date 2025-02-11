@@ -1,6 +1,6 @@
 import { Sequelize, Model, DataTypes } from 'sequelize'
 import { sequelize } from '@src/database'
-import { Status } from '@src/common/constants';
+import { Publicness, Status } from '@src/common/constants';
 
 const Note = sequelize.define('notes', {
     nid: {
@@ -28,12 +28,12 @@ const Note = sequelize.define('notes', {
     isShare: {
         type: DataTypes.SMALLINT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: Publicness.PRIVATE
     },
     allowPublicEdit: {
         type: DataTypes.SMALLINT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: Publicness.PRIVATE
     },
     noteStatus: {
         type: DataTypes.SMALLINT,
