@@ -68,12 +68,46 @@ class UserService implements IUserService {
         }
     }
 
-    async removeUser(uid: number | any) {
-        if (typeof uid !== 'number') {
-            throw new ArgumentError("'uid' must be a number");
+    async removeUser(uid: number | any, password: string | number) {
+        if (typeof uid !== 'number' || typeof password !== 'string') {
+            throw new ArgumentError("'uid' must be a number and 'password' must be a string");
         }
 
-        return await this.userRepository.removeUser(uid);
+        const userObj = await this.userRepository.getUserById(uid);
+        if (!userObj) {
+            return {
+                success: false,
+                reason: FailureReason.USER_NOT_EXISTS,
+                message: 'User does not exists'
+            }
+        }
+
+        const pwdSalt = userObj.passwordSalt;
+        const pwdhashDb = userObj.password;
+
+        if (typeof pwdSalt !== 'string') {
+            throw new DataError('Error: passwordSalt type error!');
+        }
+        if (typeof pwdhashDb !== 'string') {
+            throw new DataError('Error: password type error!');
+        }
+
+        const pwdhash = hashSHA512(password, pwdSalt, this.iterations);
+
+        if (pwdhash !== pwdhashDb) {
+            return {
+                success: false,
+                reason: FailureReason.PASSWORD_WRONG,
+                message: 'Password error!'
+            }
+        }
+        
+        const removeResult = await this.userRepository.removeUser(uid);
+        return {
+            success: true,
+            message: 'Remove user successfully',
+            data: removeResult
+        }
     }
 
     async userLogin(username: string | any, password: string | any) {
