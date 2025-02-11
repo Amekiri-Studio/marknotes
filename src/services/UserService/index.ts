@@ -36,7 +36,7 @@ export interface IUserService {
      * @param password 用户密码
      * @returns 
      */
-    removeUser: (uid: number | any, password: string | number) => Promise<any>;
+    removeUser: (uid: number | any, password: string | any) => Promise<any>;
 
     /**
      * 用户登录

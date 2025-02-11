@@ -68,7 +68,7 @@ class UserService implements IUserService {
         }
     }
 
-    async removeUser(uid: number | any, password: string | number) {
+    async removeUser(uid: number | any, password: string | any) {
         if (typeof uid !== 'number' || typeof password !== 'string') {
             throw new ArgumentError("'uid' must be a number and 'password' must be a string");
         }

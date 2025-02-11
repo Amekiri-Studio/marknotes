@@ -136,6 +136,29 @@ router.put(Paths.updatePwd, UserController.updatePassword);
 
 /**
  * @swagger
+ * /v1/user/update/avatar:
+ *  put:
+ *      summary: 更新用户头像
+ *      consumes:
+ *        - multipart/form-data
+ *      parameters:
+ *        - name: image
+ *          in: formData
+ *          description: 要上传的头像，接受Blob
+ *          required: true
+ *          type: file
+ *        - in: header
+ *          name: x-mn-authorization
+ *          required: true
+ *          description: 登录后获取到的Token
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.put(Paths.updateAvatar, UserController.avatarUpload.single('image'), UserController.updateAvatar);
+
+/**
+ * @swagger
  * /v1/user/remove:
  *  delete:
  *      summary: 删除用户(注销用户)
