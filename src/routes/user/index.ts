@@ -163,6 +163,11 @@ router.put(Paths.updateAvatar, UserController.avatarUpload.single('image'), User
  *  delete:
  *      summary: 删除用户(注销用户)
  *      description: 删除当前用户(需要已登录)
+ *      parameters:
+ *        - in: header
+ *          name: x-mn-authorization
+ *          required: true
+ *          description: 登录后获取到的Token
  *      requestBody:
  *          required: true
  *          content:
