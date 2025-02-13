@@ -92,6 +92,8 @@ class NoteRepository implements INoteRepository {
         return await Note.findAll({
             where: {
                 [Op.and]: Sequelize.literal(`MATCH(content) AGAINST(:keyword IN BOOLEAN MODE)`),
+                isShare: true,
+                noteStatus: Status.Normal
             },
             replacements: { keyword }
         })

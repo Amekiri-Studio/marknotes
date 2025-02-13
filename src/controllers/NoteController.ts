@@ -2,8 +2,9 @@ import INoteService, { NoteService } from "@src/services/NoteService";
 import { IReq, IRes } from "./common";
 import HttpStatusCodes from "@src/common/HttpStatusCodes";
 import RetCode from "@src/common/RetCode";
-import UserController from "./UserController";
 import FailureReason from "@src/common/Reason";
+import { decodeToken } from "@src/util/token";
+import { UserService } from "@src/services/UserService";
 
 class NoteController {
     static noteService: INoteService;
@@ -45,11 +46,17 @@ class NoteController {
                 return;
             }
 
-            const tokenPayload: any = UserController.verifyUserLoginAuth(req, res);
+            const tokenPayload: any = await NoteController.verifyUserLoginAuth(req, res);
 
-            NoteController.noteService.addNote({
+            const result = await NoteController.noteService.addNote({
                 title, creator: tokenPayload.uid, language: pLang, content, isShare, allowPublicEdit
             })
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'ok',
+                data: result
+            });
         } catch (error) {
             console.error(error);
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -78,6 +85,37 @@ class NoteController {
 
             const result = await NoteController.noteService.getNoteById(id);
 
+            if (!result.isShare) {
+                const userService = await UserService.createService();
+                const authorizationHeader = req.headers['x-mn-authorization'];
+                if (!authorizationHeader) {
+                    res.json({
+                        code: RetCode.FAILURE,
+                        reason: FailureReason.PRIVATE_NOTE,
+                        message: 'This note is private'
+                    })
+                    return;
+                }
+                const tokenPayload: any = decodeToken(authorizationHeader);
+                if (!tokenPayload) {
+                    res.json({
+                        code: RetCode.FAILURE,
+                        reason: FailureReason.PRIVATE_NOTE,
+                        message: 'This note is private'
+                    })
+                    return;
+                }
+
+                if (!(await userService.verifyPasshashCorrection(tokenPayload.uid, tokenPayload.password))) {
+                    res.json({
+                        code: RetCode.FAILURE,
+                        reason: FailureReason.PRIVATE_NOTE,
+                        message: 'This note is private'
+                    })
+                    return;
+                }
+            }
+
             res.json({
                 code: RetCode.SUCCESS,
                 message: 'OK',
@@ -96,6 +134,20 @@ class NoteController {
     static async update(req: IReq, res: IRes) {
         try {
             await NoteController.createService();
+
+            const tokenPayload: any = await this.verifyUserLoginAuth(req, res);
+            const { nid, title, content } = req.body;
+
+            const result = NoteController.noteService.updateNote(nid, tokenPayload.uid, {title, content});
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'Update successfully',
+                data: {
+                    nid,
+                    title,
+                    result
+                }
+            })
         } catch (error) {
             console.error(error);
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -107,11 +159,78 @@ class NoteController {
     }
 
     static async search(req: IReq, res: IRes) {
+        try {
+            await NoteController.createService();
 
+            const keyword = req.params.keyword;
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
     }
 
     static async remove(req: IReq, res: IRes) {
+
+    }
+
+    static async list(req: IReq, res: IRes) {
+
+    }
+
+    static async listById(req: IReq, res: IRes) {
+
+    }
+
+    static async uploadImage(req: IReq, res: IRes) {
+
+    }
+
+    static async setNotePublic(req: IReq, res: IRes) {
+
+    }
+
+    static async setNotePrivate(req: IReq, res: IRes) {
+
+    }
+
+    static async setNotePublicEdit(req: IReq, res: IRes) {
+
+    }
+
+    static async setNotePrivateEdit(req: IReq, res: IRes) {
+
+    }
+
+    private static async verifyUserLoginAuth(req: IReq, res: IRes) {
+        const authorizationHeader = req.headers['x-mn-authorization'];
+
+        if (!authorizationHeader) {
+            res.json({
+                code: RetCode.FAILURE,
+                reason: FailureReason.LACK_OF_AUTH,
+                message: 'Lack of authorization information'
+            })
+            return false;
+        }
         
+        const decodePayload: any = decodeToken(authorizationHeader);
+
+        const userService = await UserService.createService();
+
+        if (!(await userService.verifyPasshashCorrection(decodePayload.uid , decodePayload.password))) {
+            res.json({
+                code: RetCode.FAILURE,
+                reason: FailureReason.TOKEN_INVALID,
+                message: 'Verification infos invalid'
+            })
+            return false;
+        }
+
+        return decodePayload;
     }
 }
 

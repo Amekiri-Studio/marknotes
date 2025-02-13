@@ -30,9 +30,19 @@ enum FailureReason {
     SAME_PASSWORD = -105,
 
     /**
-     * 前端未提供语言，且无法读取到浏览器默认语言
+     * 失败原因：前端未提供语言，且无法读取到浏览器默认语言
      */
-    LACK_OF_DEFAULT_LANGUAGE = -106
+    LACK_OF_DEFAULT_LANGUAGE = -106,
+
+    /**
+     * 失败原因：笔记为私有，无法直接访问
+     */
+    PRIVATE_NOTE = -107,
+
+    /**
+     * 失败原因：用户名已存在，无法使用
+     */
+    USERNAME_EXISTS = -108,
 }
 
 export default FailureReason;

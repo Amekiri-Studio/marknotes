@@ -140,7 +140,7 @@ class UserController {
         try {
             await UserController.createService();
             const { userInfoType, value } = req.body;
-            const tokenPayload: any = UserController.verifyUserLoginAuth(req, res);
+            const tokenPayload: any = await UserController.verifyUserLoginAuth(req, res);
 
             let result;
 
@@ -181,7 +181,7 @@ class UserController {
     static async updatePassword(req: IReq, res: IRes) {
         try {
             await UserController.createService();
-            const tokenPayload: any = UserController.verifyUserLoginAuth(req, res);
+            const tokenPayload: any = await UserController.verifyUserLoginAuth(req, res);
             if (!tokenPayload) {
                 return;
             }
@@ -216,7 +216,7 @@ class UserController {
     static async updateAvatar(req: IReq, res: IRes) {
         try {
             await UserController.createService();
-            const tokenPayload: any = UserController.verifyUserLoginAuth(req, res);
+            const tokenPayload: any = await UserController.verifyUserLoginAuth(req, res);
             if (!req.file) {
                 res.status(HttpStatusCodes.BAD_REQUEST).json({
                     code: RetCode.BAD_REQUEST,
@@ -251,7 +251,7 @@ class UserController {
     static async remove(req: IReq, res: IRes) {
         try {
             await UserController.createService();
-            const tokenPayload: any = UserController.verifyUserLoginAuth(req, res);
+            const tokenPayload: any = await UserController.verifyUserLoginAuth(req, res);
             const password = req.body.password;
             const result = await UserController.userService.removeUser(tokenPayload.uid, password);
 
@@ -312,7 +312,7 @@ class UserController {
         }
     }
 
-    static verifyUserLoginAuth(req: IReq, res: IRes) {
+    private static async verifyUserLoginAuth(req: IReq, res: IRes) {
         const authorizationHeader = req.headers['x-mn-authorization'];
 
         if (!authorizationHeader) {
@@ -326,7 +326,7 @@ class UserController {
         
         const decodePayload: any = decodeToken(authorizationHeader);
 
-        if (!UserController.userService.verifyPasshashCorrection(decodePayload.uid , decodePayload.password)) {
+        if (!(await UserController.userService.verifyPasshashCorrection(decodePayload.uid , decodePayload.password))) {
             res.json({
                 code: RetCode.FAILURE,
                 reason: FailureReason.TOKEN_INVALID,

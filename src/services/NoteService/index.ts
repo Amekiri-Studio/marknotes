@@ -27,7 +27,7 @@ export interface INoteService {
      * @param noteData 笔记数据
      * @returns 
      */
-    updateNote: (nid: number, creator: number, noteData: {title: string, content: string}) => Promise<any>;
+    updateNote: (nid: number | any, creator: number, noteData: {title: string | any, content: string | any}) => Promise<any>;
 
     /**
      * 设置笔记为公开可见

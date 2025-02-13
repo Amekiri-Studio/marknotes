@@ -61,16 +61,212 @@ router.post(Paths.add, NoteController.add);
  *          description: 笔记ID
  *          schema:
  *              type: number
+ *        - in: header
+ *          name: x-mn-authorization
+ *          description: 登录后获取到的Token(部分笔记为私有，需要登录后才可以获取到)
+ *          schema:
+ *              type: string
  *      responses:
  *          '200':
  *              description: OK
  */
 router.get(Paths.get, NoteController.get);
 
+/**
+ * @swagger
+ * /v1/note/update:
+ *  put:
+ *      summary: 更新笔记
+ *      description: 更新笔记
+ *      tags:
+ *        - Note
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          nid:
+ *                              type: number
+ *                              description: 笔记ID
+ *                          title:
+ *                              type: string
+ *                              description: 笔记标题
+ *                          content:
+ *                              type: string
+ *                              description: 笔记内容
+ *      parameters:
+ *        - in: header
+ *          name: x-mn-authorization
+ *          description: 登录后获取到的Token
+ *          schema:
+ *              type: string
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
 router.put(Paths.update, NoteController.update);
 
+/**
+ * @swagger
+ * /v1/note/remove/{id}:
+ *  delete:
+ *      summary: 删除笔记
+ *      description: 删除笔记
+ *      tags:
+ *        - Note
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: 笔记ID
+ *          schema:
+ *              type: string
+ *        - in: header
+ *          name: x-mn-authorization
+ *          description: 登录后获取到的Token
+ *          schema:
+ *              type: string
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
 router.delete(Paths.remove, NoteController.remove);
 
+/**
+ * @swagger
+ * /v1/note/search/{keyword}:
+ *  get:
+ *      summary: 通过关键字搜索笔记
+ *      description: 通过关键字搜索笔记
+ *      tags:
+ *        - Note
+ *      parameters:
+ *        - in: path
+ *          name: keyword
+ *          description: 笔记ID
+ *          schema:
+ *              type: string
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
 router.get(Paths.search, NoteController.search);
+
+/**
+ * @swagger
+ * /v1/note/search/{keyword}:
+ *  get:
+ *      summary: 列出自己创建的所有笔记
+ *      description: 列出自己创建的所有笔记
+ *      tags:
+ *        - Note
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.get(Paths.list, NoteController.list);
+
+/**
+ * @swagger
+ * /v1/note/search/{keyword}:
+ *  get:
+ *      summary: 列出他人的所有笔记
+ *      description: 列出他人的所有笔记(通过用户ID)
+ *      tags:
+ *        - Note
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: 用户ID
+ *          schema:
+ *              type: number
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.get(Paths.listById, NoteController.listById);
+
+/**
+ * @swagger
+ * /v1/note/image:
+ *  post:
+ *      summary: 上传图片
+ *      description: 上传图片(笔记)
+ *      tags:
+ *        - Note
+ *      consumes:
+ *        - multipart/form-data
+ *      parameters:
+ *        - name: image
+ *          in: formData
+ *          description: 要上传的图片，接受Blob
+ *          required: true
+ *          type: file
+ *        - in: header
+ *          name: x-mn-authorization
+ *          required: true
+ *          description: 登录后获取到的Token
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.post(Paths.image, NoteController.uploadImage);
+
+/**
+ * @swagger
+ * /v1/note/public:
+ *  put:
+ *      summary: 设置笔记为公开可见
+ *      description: 设置笔记为公开可见
+ *      tags:
+ *        - Note
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.put(Paths.setPublic, NoteController.setNotePublic);
+
+/**
+ * @swagger
+ * /v1/note/private:
+ *  put:
+ *      summary: 设置笔记为不公开可见
+ *      description: 设置笔记为不公开可见
+ *      tags:
+ *        - Note
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.put(Paths.setPrivate, NoteController.setNotePrivate);
+
+/**
+ * @swagger
+ * /v1/note/public/edit:
+ *  put:
+ *      summary: 设置笔记为公开可编辑(需先设置为公开可见)
+ *      description: 设置笔记为公开可编辑(需先设置为公开可见)
+ *      tags:
+ *        - Note
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.put(Paths.setPublicEdit, NoteController.setNotePublicEdit);
+
+/**
+ * @swagger
+ * /v1/note/private/edit:
+ *  put:
+ *      summary: 设置笔记为不公开可编辑
+ *      description: 设置笔记为不公开可编辑
+ *      tags:
+ *        - Note
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.put(Paths.setPrivateEdit, NoteController.setNotePrivateEdit);
 
 export default router;

@@ -39,7 +39,7 @@ class NoteService implements INoteService {
         return this.noteRepository.getNoteById(nid);
     }
 
-    async updateNote (nid: number, creator: number, noteData: { title: string; content: string; }) {
+    async updateNote (nid: number | any, creator: number | any, noteData: { title: string | any; content: string | any; }) {
         if (typeof nid !== 'number' ||
             typeof creator !== 'number' ||
             typeof noteData.title !== 'string' ||
@@ -53,27 +53,31 @@ class NoteService implements INoteService {
     }
 
     async setNotePublic (nid: number | any, creator: number | any) {
-
+        return await this.noteRepository.setNotePublic(nid, creator);
     }
 
     async setNotePrivate (nid: number | any, creator: number | any) {
-
+        return await this.noteRepository.setNotePrivate(nid, creator);
     }
 
     async setNotePublicEdit (nid: number | any, creator: number | any) {
-
+        return await this.noteRepository.setNotePublicEdit(nid, creator);
     }
 
     async setNotePrivateEdit (nid: number | any, creator: number | any) {
-
+        return await this.noteRepository.setNotePrivateEdit(nid, creator);
     }
 
     async removeNote (nid: number | any, creator: number | any) {
-
+        
     }
 
     async searchNote (keyword: string | any) {
-        
+        if (typeof keyword !== 'string') {
+            throw new ArgumentError(`Argument 'keyword' must be a string`);
+        }
+
+        return await this.noteRepository.searchNote(keyword);
     }
     
 }
