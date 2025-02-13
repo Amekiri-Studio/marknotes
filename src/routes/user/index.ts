@@ -10,6 +10,8 @@ const router = Router();
  *  post:
  *      summary: 添加用户
  *      description: 添加一个新用户
+ *      tags:
+ *        - User
  *      requestBody:
  *          required: true
  *          content:
@@ -42,6 +44,8 @@ router.post(Paths.add, UserController.add);
  *  get:
  *      summary: 通过用户ID获取用户对象
  *      description: 通过用户ID获取用户对象
+ *      tags:
+ *        - User
  *      parameters:
  *        - in: path
  *          name: id
@@ -61,6 +65,8 @@ router.get(Paths.get, UserController.get);
  *  get:
  *      summary: 通过用户名获取用户对象
  *      description: 通过用户ID获取用户对象
+ *      tags:
+ *        - User
  *      parameters:
  *        - in: path
  *          name: username
@@ -80,6 +86,8 @@ router.get(Paths.getName, UserController.getName);
  *  put:
  *      summary: 更新用户个人信息
  *      description: 可更新用户名，昵称
+ *      tags:
+ *        - User
  *      parameters:
  *        - in: header
  *          name: x-mn-authorization
@@ -110,6 +118,8 @@ router.put(Paths.update, UserController.update);
  *  put:
  *      summary: 更新用户密码
  *      description: 可更新用户密码
+ *      tags:
+ *        - User
  *      parameters:
  *        - in: header
  *          name: x-mn-authorization
@@ -139,6 +149,9 @@ router.put(Paths.updatePwd, UserController.updatePassword);
  * /v1/user/update/avatar:
  *  put:
  *      summary: 更新用户头像
+ *      description: 更新用户头像
+ *      tags:
+ *        - User
  *      consumes:
  *        - multipart/form-data
  *      parameters:
@@ -163,6 +176,8 @@ router.put(Paths.updateAvatar, UserController.avatarUpload.single('image'), User
  *  delete:
  *      summary: 删除用户(注销用户)
  *      description: 删除当前用户(需要已登录)
+ *      tags:
+ *        - User
  *      parameters:
  *        - in: header
  *          name: x-mn-authorization
@@ -190,6 +205,8 @@ router.delete(Paths.remove, UserController.remove);
  *  post:
  *      summary: 登录
  *      description: 用户登录，登录成功后返回一个token
+ *      tags:
+ *        - User
  *      requestBody:
  *          required: true
  *          content:

@@ -26,14 +26,14 @@ const Note = sequelize.define('notes', {
         allowNull: false
     },
     isShare: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: Publicness.PRIVATE
+        defaultValue: false
     },
     allowPublicEdit: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: Publicness.PRIVATE
+        defaultValue: false
     },
     noteStatus: {
         type: DataTypes.SMALLINT,

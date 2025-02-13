@@ -1,18 +1,24 @@
-import NoteRepository from "./impl";
-export interface INoteRepository {
+import NoteService from "./impl";
+
+export interface INoteService {
     /**
      * 添加笔记
-     * @param noteData Note数据结构体
+     * @param noteData 笔记数据
      * @returns 
      */
-    addNote: (noteData: {title: string, creator: number, language: string, content: string, isShare?: boolean, allowPublicEdit?: boolean}) => Promise<any>;
+    addNote: (noteData: {title: string | any,
+        creator: number | any, 
+        language: string | any, 
+        content: string | any, 
+        isShare?: boolean | any, 
+        allowPublicEdit?: boolean | any}) => Promise<any>;
     
     /**
      * 通过笔记ID获取笔记
      * @param nid 笔记ID
      * @returns 
      */
-    getNoteById: (nid: number) => Promise<any>;
+    getNoteById: (nid: number | any) => Promise<any>;
 
     /**
      * 更新笔记
@@ -29,31 +35,31 @@ export interface INoteRepository {
      * @param creator 笔记创建者
      * @returns 
      */
-    setNotePublic: (nid: number, creator: number) => Promise<any>;
+    setNotePublic: (nid: number | any, creator: number | any) => Promise<any>;
 
     /**
-     * 设置笔记为私有(不公开可见)
+     * 设置笔记为私有(不可见)
      * @param nid 笔记ID
      * @param creator 笔记创建者
      * @returns 
      */
-    setNotePrivate: (nid: number, creator: number) => Promise<any>;
+    setNotePrivate: (nid: number | any, creator: number | any) => Promise<any>;
 
     /**
-     * 设置笔记为公开可编辑
+     * 设置笔记为可公开编辑(要设置笔记为公开可见)
      * @param nid 笔记ID
      * @param creator 笔记创建者
      * @returns 
      */
-    setNotePublicEdit: (nid: number, creator: number) => Promise<any>;
+    setNotePublicEdit: (nid: number | any, creator: number | any) => Promise<any>;
 
     /**
-     * 设置笔记为私有可编辑(只有创建者可以编辑)
+     * 设置笔记为不可公开编辑
      * @param nid 笔记ID
      * @param creator 笔记创建者
      * @returns 
      */
-    setNotePrivateEdit: (nid: number, creator: number) => Promise<any>;
+    setNotePrivateEdit: (nid: number | any, creator: number | any) => Promise<any>;
 
     /**
      * 删除笔记
@@ -61,16 +67,16 @@ export interface INoteRepository {
      * @param creator 笔记创建者
      * @returns 
      */
-    removeNote: (nid: number, creator: number) => Promise<any>;
+    removeNote: (nid: number | any, creator: number | any) => Promise<any>;
 
     /**
      * 搜索笔记
      * @param keyword 关键字
      * @returns 
      */
-    searchNote: (keyword: string) => Promise<any>;
+    searchNote: (keyword: string | any) => Promise<any>;
 }
 
-export { NoteRepository }
+export {NoteService}
 
-export default INoteRepository;
+export default INoteService;

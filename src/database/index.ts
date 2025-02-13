@@ -24,3 +24,5 @@ export const syncModels = async (option: any | null | undefined) => {
 export const close = async () => {
     await sequelize.close();
 }
+
+export default sequelize;

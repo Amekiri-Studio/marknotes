@@ -55,7 +55,7 @@ class UserController {
     static avatarUpload = multer({storage: UserController.avatarStorage});
 
     static async createService() {
-        if (!this.userService) {
+        if (!UserController.userService) {
             UserController.userService = await UserService.createService();
         }
     }
@@ -151,6 +151,12 @@ class UserController {
                 case UserInfoType.NICKNAME:
                     result = await UserController.userService.updateUserInfo(UserInfoType.NICKNAME, tokenPayload.uid, value);
                     break;
+                default: 
+                    res.status(HttpStatusCodes.BAD_REQUEST).json({
+                        code: RetCode.BAD_REQUEST,
+                        message: 'UserInfoType error!'
+                    })
+                    break;
             }
 
             res.json({
@@ -158,7 +164,8 @@ class UserController {
                 message: 'Update successfully',
                 data: {
                     uid: tokenPayload.uid,
-                    value: value
+                    value: value,
+                    result: result
                 }
             })
         } catch (error) {
@@ -305,7 +312,7 @@ class UserController {
         }
     }
 
-    private static verifyUserLoginAuth(req: IReq, res: IRes) {
+    static verifyUserLoginAuth(req: IReq, res: IRes) {
         const authorizationHeader = req.headers['x-mn-authorization'];
 
         if (!authorizationHeader) {

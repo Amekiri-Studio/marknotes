@@ -28,6 +28,11 @@ enum FailureReason {
      * 失败原因：新密码与旧密码相同
      */
     SAME_PASSWORD = -105,
+
+    /**
+     * 前端未提供语言，且无法读取到浏览器默认语言
+     */
+    LACK_OF_DEFAULT_LANGUAGE = -106
 }
 
 export default FailureReason;

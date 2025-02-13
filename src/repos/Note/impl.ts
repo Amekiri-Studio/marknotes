@@ -2,6 +2,7 @@ import Note from "@src/models/Note";
 import { sequelize, authenticate, syncModels } from '@src/database'
 import { Publicness, Status } from "@src/common/constants";
 import INoteRepository from ".";
+import { Op, Sequelize } from "sequelize";
 
 class NoteRepository implements INoteRepository {
     private constructor() {
@@ -84,6 +85,15 @@ class NoteRepository implements INoteRepository {
             where: {
                 nid, creator
             }
+        })
+    }
+
+    async searchNote(keyword: string) {
+        return await Note.findAll({
+            where: {
+                [Op.and]: Sequelize.literal(`MATCH(content) AGAINST(:keyword IN BOOLEAN MODE)`),
+            },
+            replacements: { keyword }
         })
     }
 }
