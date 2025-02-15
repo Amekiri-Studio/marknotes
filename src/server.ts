@@ -33,7 +33,7 @@ app.use(express.urlencoded({extended: true}));
 
 // Show routes called in console during development
 if (Env.NodeEnv === NodeEnvs.Dev.valueOf()) {
-  app.use(morgan('dev'));
+  app.use(morgan('combined'));
 }
 
 // Security
