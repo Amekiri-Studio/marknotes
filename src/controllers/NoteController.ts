@@ -43,9 +43,17 @@ class NoteController {
             }
         },
         filename: (req, file, cb) => {
-
+            try {
+                const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+                const extension = path.extname(file.originalname);
+                cb(null, uniqueSuffix + extension);
+            } catch (error) {
+                cb(error, '');
+            }
         }
     })
+
+    static noteImageUpload = multer({ storage: NoteController.noteImageStorage })
 
     static async createService() {
         if (!NoteController.noteService) {
@@ -297,7 +305,26 @@ class NoteController {
 
     static async uploadImage(req: IReq, res: IRes) {
         try {
+            const tokenPayload: any = await NoteController.verifyUserLoginAuth(req, res);
+            if (!req.file) {
+                res.status(HttpStatusCodes.BAD_REQUEST).json({
+                    code: RetCode.BAD_REQUEST,
+                    message: 'no image upload'
+                });
+                return;
+            }
 
+            let path = req.file.path;
+            path = NoteController.processNoteAvatarPath(path);
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'Update image successfully',
+                data: {
+                    uid: tokenPayload.uid,
+                    image: path
+                }
+            })
         } catch (error) {
             console.error(error);
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -450,6 +477,11 @@ class NoteController {
         }
 
         return decodePayload;
+    }
+
+    static processNoteAvatarPath(fullPath: string) {
+        const pathGroups = fullPath.split("/");
+        return `/${pathGroups[pathGroups.length - 2]}/${pathGroups[pathGroups.length - 1]}`;
     }
 }
 
