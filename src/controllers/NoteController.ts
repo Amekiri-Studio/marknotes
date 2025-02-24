@@ -202,6 +202,10 @@ class NoteController {
         }
     }
 
+    static async edit(req: IReq, res: IRes) {
+        
+    }
+
     static async search(req: IReq, res: IRes) {
         try {
             await NoteController.createService();

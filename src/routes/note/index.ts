@@ -74,10 +74,10 @@ router.get(Paths.get, NoteController.get);
 
 /**
  * @swagger
- * /v1/note/update:
+ * /v1/note/update/{id}:
  *  put:
  *      summary: 更新笔记
- *      description: 更新笔记
+ *      description: 更新笔记(若编辑非本人的笔记，请使用/v1/note/edit/:id接口)
  *      tags:
  *        - Note
  *      requestBody:
@@ -107,6 +107,42 @@ router.get(Paths.get, NoteController.get);
  *              description: OK
  */
 router.put(Paths.update, NoteController.update);
+
+/**
+ * @swagger
+ * /v1/note/edit/{id}:
+ *  put:
+ *      summary: 编辑笔记(编辑公开/他人笔记)
+ *      description: 编辑笔记(编辑公开/他人笔记)
+ *      tags:
+ *        - Note
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          nid:
+ *                              type: number
+ *                              description: 笔记ID
+ *                          title:
+ *                              type: string
+ *                              description: 笔记标题
+ *                          content:
+ *                              type: string
+ *                              description: 笔记内容
+ *      parameters:
+ *        - in: header
+ *          name: x-mn-authorization
+ *          description: 登录后获取到的Token
+ *          schema:
+ *              type: string
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.put(Paths.edit, NoteController.edit);
 
 /**
  * @swagger

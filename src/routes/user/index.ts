@@ -30,7 +30,7 @@ const router = Router();
  *                              description: 密码，不需要HASH，服务器会自行HASH
  *      responses:
  *          '200':
- *              description: 成功添加用户
+ *              description: OK
  *          '400':
  *              description: 参数错误
  *          '500':

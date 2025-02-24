@@ -4,6 +4,7 @@ export default {
     get: '/get/:id',
     search: '/search/:keyword',
     update: '/update/:id',
+    edit: '/edit/:id',
     remove: '/remove/:id',
     list: '/list',
     listById: '/list/:id',
