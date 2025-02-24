@@ -120,8 +120,6 @@ router.put(Paths.update, NoteController.update);
  *        - in: path
  *          name: id
  *          description: 笔记ID
- *          schema:
- *              type: string
  *        - in: header
  *          name: x-mn-authorization
  *          description: 登录后获取到的Token
@@ -155,12 +153,17 @@ router.get(Paths.search, NoteController.search);
 
 /**
  * @swagger
- * /v1/note/search/{keyword}:
+ * /v1/note/list:
  *  get:
  *      summary: 列出自己创建的所有笔记
  *      description: 列出自己创建的所有笔记
  *      tags:
  *        - Note
+ *      parameters:
+ *        - in: header
+ *          name: x-mn-authorization
+ *          required: true
+ *          description: 登录后获取到的Token
  *      responses:
  *          '200':
  *              description: OK
@@ -169,7 +172,7 @@ router.get(Paths.list, NoteController.list);
 
 /**
  * @swagger
- * /v1/note/search/{keyword}:
+ * /v1/note/list/{id}:
  *  get:
  *      summary: 列出他人的所有笔记
  *      description: 列出他人的所有笔记(通过用户ID)
@@ -215,12 +218,20 @@ router.post(Paths.image, NoteController.uploadImage);
 
 /**
  * @swagger
- * /v1/note/public:
+ * /v1/note/public/{id}:
  *  put:
  *      summary: 设置笔记为公开可见
  *      description: 设置笔记为公开可见
  *      tags:
  *        - Note
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: 笔记ID
+ *        - in: header
+ *          name: x-mn-authorization
+ *          required: true
+ *          description: 登录后获取到的Token
  *      responses:
  *          '200':
  *              description: OK
@@ -229,12 +240,20 @@ router.put(Paths.setPublic, NoteController.setNotePublic);
 
 /**
  * @swagger
- * /v1/note/private:
+ * /v1/note/private/{id}:
  *  put:
  *      summary: 设置笔记为不公开可见
  *      description: 设置笔记为不公开可见
  *      tags:
  *        - Note
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: 笔记ID
+ *        - in: header
+ *          name: x-mn-authorization
+ *          required: true
+ *          description: 登录后获取到的Token
  *      responses:
  *          '200':
  *              description: OK
@@ -243,12 +262,20 @@ router.put(Paths.setPrivate, NoteController.setNotePrivate);
 
 /**
  * @swagger
- * /v1/note/public/edit:
+ * /v1/note/public/edit/{id}:
  *  put:
  *      summary: 设置笔记为公开可编辑(需先设置为公开可见)
  *      description: 设置笔记为公开可编辑(需先设置为公开可见)
  *      tags:
  *        - Note
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: 笔记ID
+ *        - in: header
+ *          name: x-mn-authorization
+ *          required: true
+ *          description: 登录后获取到的Token
  *      responses:
  *          '200':
  *              description: OK
@@ -257,12 +284,20 @@ router.put(Paths.setPublicEdit, NoteController.setNotePublicEdit);
 
 /**
  * @swagger
- * /v1/note/private/edit:
+ * /v1/note/private/edit/{id}:
  *  put:
  *      summary: 设置笔记为不公开可编辑
  *      description: 设置笔记为不公开可编辑
  *      tags:
  *        - Note
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: 笔记ID
+ *        - in: header
+ *          name: x-mn-authorization
+ *          required: true
+ *          description: 登录后获取到的Token
  *      responses:
  *          '200':
  *              description: OK

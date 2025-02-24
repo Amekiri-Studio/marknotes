@@ -8,8 +8,8 @@ export default {
     list: '/list',
     listById: '/list/:id',
     image: '/image',
-    setPublic: '/public',
-    setPrivate: '/private',
-    setPublicEdit: '/public/edit',
-    setPrivateEdit: '/private/edit'
+    setPublic: '/public/:id',
+    setPrivate: '/private/:id',
+    setPublicEdit: '/public/edit/:id',
+    setPrivateEdit: '/private/edit/:id'
 } as const;

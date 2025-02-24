@@ -5,6 +5,7 @@ import RetCode from "@src/common/RetCode";
 import FailureReason from "@src/common/Reason";
 import { decodeToken } from "@src/util/token";
 import { UserService } from "@src/services/UserService";
+import { date } from "jet-env";
 
 class NoteController {
     static noteService: INoteService;
@@ -135,7 +136,7 @@ class NoteController {
         try {
             await NoteController.createService();
 
-            const tokenPayload: any = await this.verifyUserLoginAuth(req, res);
+            const tokenPayload: any = await NoteController.verifyUserLoginAuth(req, res);
             const { nid, title, content } = req.body;
 
             const result = NoteController.noteService.updateNote(nid, tokenPayload.uid, {title, content});
@@ -163,6 +164,14 @@ class NoteController {
             await NoteController.createService();
 
             const keyword = req.params.keyword;
+
+            const result = await NoteController.noteService.searchNote(keyword);
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: result
+            });
         } catch (error) {
             console.error(error);
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -174,15 +183,81 @@ class NoteController {
     }
 
     static async remove(req: IReq, res: IRes) {
+        try {
+            await NoteController.createService();
 
+            const tokenPayload: any = await NoteController.verifyUserLoginAuth(req, res);
+
+            const nid = req.params.id;
+
+            const result = await NoteController.noteService.removeNote(nid, tokenPayload.uid);
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'Remove successfully',
+                data: {
+                    nid, uid: tokenPayload.uid, result
+                }
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
     }
 
     static async list(req: IReq, res: IRes) {
+        try {
+            await NoteController.createService();
 
+            const tokenPayload: any = await NoteController.verifyUserLoginAuth(req, res);
+
+            const notes = await NoteController.noteService.listNote(tokenPayload.uid, false);
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: notes
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
     }
 
     static async listById(req: IReq, res: IRes) {
+        try {
+            await NoteController.createService();
 
+            const uidStr = req.params.id;
+            let uid;
+
+            if (typeof uidStr === 'string') {
+                uid = parseInt(uidStr);
+            }
+
+            const notes = await NoteController.noteService.listNote(uid, true);
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: notes
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
     }
 
     static async uploadImage(req: IReq, res: IRes) {
@@ -190,19 +265,119 @@ class NoteController {
     }
 
     static async setNotePublic(req: IReq, res: IRes) {
+        try {
+            await NoteController.createService();
 
+            const tokenPayload: any = await NoteController.verifyUserLoginAuth(req, res);
+            const nidStr = req.params.id;
+            let nid;
+
+            if (typeof nidStr === 'string') {
+                nid = parseInt(nidStr);
+            }
+
+            const result = await NoteController.noteService.setNotePublic(nid, tokenPayload.uid);
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: result
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
     }
 
     static async setNotePrivate(req: IReq, res: IRes) {
+        try {
+            await NoteController.createService();
 
+            const tokenPayload: any = await NoteController.verifyUserLoginAuth(req, res);
+            const nidStr = req.params.id;
+            let nid;
+
+            if (typeof nidStr === 'string') {
+                nid = parseInt(nidStr);
+            }
+
+            const result = await NoteController.noteService.setNotePrivate(nid, tokenPayload.uid);
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: result
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
     }
 
     static async setNotePublicEdit(req: IReq, res: IRes) {
+        try {
+            await NoteController.createService();
 
+            const tokenPayload: any = await NoteController.verifyUserLoginAuth(req, res);
+            const nidStr = req.params.id;
+            let nid;
+
+            if (typeof nidStr === 'string') {
+                nid = parseInt(nidStr);
+            }
+
+            const result = await NoteController.noteService.setNotePublicEdit(nid, tokenPayload.uid);
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: result
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
     }
 
     static async setNotePrivateEdit(req: IReq, res: IRes) {
+        try {
+            await NoteController.createService();
 
+            const tokenPayload: any = await NoteController.verifyUserLoginAuth(req, res);
+            const nidStr = req.params.id;
+            let nid;
+
+            if (typeof nidStr === 'string') {
+                nid = parseInt(nidStr);
+            }
+
+            const result = await NoteController.noteService.setNotePrivateEdit(nid, tokenPayload.uid);
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: result
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
     }
 
     private static async verifyUserLoginAuth(req: IReq, res: IRes) {

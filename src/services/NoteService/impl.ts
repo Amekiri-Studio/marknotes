@@ -79,7 +79,14 @@ class NoteService implements INoteService {
 
         return await this.noteRepository.searchNote(keyword);
     }
-    
+
+    async listNote (uid: number | any, isPublic: boolean = true) {
+        if (typeof uid !== 'number') {
+            throw new ArgumentError(`Argument 'uid' must be a number`);
+        }
+
+        return await this.noteRepository.listNote(uid, isPublic);
+    }
 }
 
 export default NoteService;

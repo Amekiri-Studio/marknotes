@@ -18,6 +18,10 @@ import routes from '@src/routes';
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from '../swaggerConfig';
 
+import chalk from 'chalk';
+import { IReq, IRes } from './controllers/common';
+import { IncomingMessage } from 'http';
+
 /******************************************************************************
                                 Variables
 ******************************************************************************/
@@ -31,9 +35,26 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+// morgan.token('format1', (req, res) => {
+//   const method = req.method;
+//   const url = req.url;
+//   const status = res.statusCode;
+//   const clientIP = req.headers['X-Forwarded-For'] || req.socket.remoteAddress;
+//   const colorClientIP = chalk.bgBlue(clientIP);
+//   // const responseTime = res.responseTime + 'ms';
+
+//   const coloredMethod = method === 'GET' ? chalk.green(method) : chalk.yellow(method);
+//   const coloredUrl = chalk.blue(url);
+//   const coloredStatus = status >= 400 ? chalk.red(status) : chalk.green(status);
+//   // const coloredResponseTime = chalk.yellow(responseTime);
+
+//   // return `${new Date().toISOString()} - ${coloredMethod} ${coloredUrl} - ${coloredStatus} - ${coloredResponseTime}`;
+//   return `${colorClientIP} [${new Date().toISOString()}] ${coloredMethod} ${coloredUrl} - ${coloredStatus}`;
+// });
+
 // Show routes called in console during development
 if (Env.NodeEnv === NodeEnvs.Dev.valueOf()) {
-  app.use(morgan('combined'));
+  app.use(morgan('dev'));
 }
 
 // Security

@@ -98,6 +98,15 @@ class NoteRepository implements INoteRepository {
             replacements: { keyword }
         })
     }
+
+    async listNote(uid: number, isPublic: boolean) {
+        return await Note.findAll({
+            where: {
+                isShare: isPublic,
+                creator: uid
+            }
+        });
+    }
 }
 
 export default NoteRepository;

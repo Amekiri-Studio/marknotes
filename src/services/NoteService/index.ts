@@ -75,6 +75,14 @@ export interface INoteService {
      * @returns 
      */
     searchNote: (keyword: string | any) => Promise<any>;
+
+    /**
+     * 列出笔记(根据用户)
+     * @param uid 用户ID
+     * @param isPublic 
+     * @returns 
+     */
+    listNote: (uid: number | any, isPublic: boolean) => Promise<any>;
 }
 
 export {NoteService}
