@@ -5,12 +5,47 @@ import RetCode from "@src/common/RetCode";
 import FailureReason from "@src/common/Reason";
 import { decodeToken } from "@src/util/token";
 import { UserService } from "@src/services/UserService";
-import { date } from "jet-env";
+import multer from "multer";
+import { DataError } from "@src/common/Errors";
+import path from "path";
+import fs from 'fs'
 
 class NoteController {
     static noteService: INoteService;
 
     static noteImagePath = './public/images/notes';
+
+    static noteImageStorage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            let uploadPath: string | any;
+
+            const authorizationHeader = req.headers['x-mn-authorization'];
+            try {
+                if (!authorizationHeader) {
+                    cb(null, '');
+                    return;
+                }
+                const tokenPayload: any = decodeToken(authorizationHeader);
+                if (typeof tokenPayload.uid !== 'number') {
+                    cb(new DataError("Properties 'uid' does not a number"), '');
+                }
+
+                uploadPath = path.join(this.noteImagePath, tokenPayload.uid.toString());
+
+                fs.mkdir(uploadPath, { recursive: true }, (err) => {
+                    if (err) {
+                        cb(err, uploadPath);
+                    }
+                    cb(err, uploadPath);
+                })
+            } catch (error) {
+                cb(error, uploadPath);
+            }
+        },
+        filename: (req, file, cb) => {
+
+        }
+    })
 
     static async createService() {
         if (!NoteController.noteService) {
@@ -139,7 +174,7 @@ class NoteController {
             const tokenPayload: any = await NoteController.verifyUserLoginAuth(req, res);
             const { nid, title, content } = req.body;
 
-            const result = NoteController.noteService.updateNote(nid, tokenPayload.uid, {title, content});
+            const result = NoteController.noteService.updateNote(nid, tokenPayload.uid, { title, content });
             res.json({
                 code: RetCode.SUCCESS,
                 message: 'Update successfully',
@@ -261,7 +296,16 @@ class NoteController {
     }
 
     static async uploadImage(req: IReq, res: IRes) {
+        try {
 
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
     }
 
     static async setNotePublic(req: IReq, res: IRes) {
@@ -391,12 +435,12 @@ class NoteController {
             })
             return false;
         }
-        
+
         const decodePayload: any = decodeToken(authorizationHeader);
 
         const userService = await UserService.createService();
 
-        if (!(await userService.verifyPasshashCorrection(decodePayload.uid , decodePayload.password))) {
+        if (!(await userService.verifyPasshashCorrection(decodePayload.uid, decodePayload.password))) {
             res.json({
                 code: RetCode.FAILURE,
                 reason: FailureReason.TOKEN_INVALID,
