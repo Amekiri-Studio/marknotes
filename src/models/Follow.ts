@@ -15,6 +15,10 @@ const Follow = sequelize.define('follows', {
     following: {
         type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false
+    },
+    isRemoved: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 });
 
