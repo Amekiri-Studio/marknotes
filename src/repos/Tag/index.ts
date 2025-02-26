@@ -16,7 +16,7 @@ export interface TagRepository {
     /**
      * 列出与标签有关的笔记
      * @param tagName 标签名
-     * @returns 
+     * @returns 只返回笔记ID
      */
     listTagWithPost: (tagName: string) => Promise<any>;
 }
