@@ -1,18 +1,16 @@
-import FollowRepository from "./impl";
-export interface IFollowRepository {
-
+export interface IFollowService {
     /**
      * 关注某人
-     * @param followed 被关注者
-     * @param following 关注者
+     * @param followed 
+     * @param following 
      * @returns 
      */
     follow: (followed: number, following: number) => Promise<any>;
 
     /**
      * 取消关注某人
-     * @param followed 被关注者
-     * @param following 关注者
+     * @param followed 
+     * @param following 
      * @returns 
      */
     cancelFollow: (followed: number, following: number) => Promise<any>;
@@ -32,6 +30,4 @@ export interface IFollowRepository {
     listFollowing: (followed: number) => Promise<any>;
 }
 
-export { FollowRepository }
-
-export default IFollowRepository;
+export default IFollowService;

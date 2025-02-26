@@ -13,6 +13,9 @@ const Tag = sequelize.define('tags', {
     },
     associatedNote: {
         type: DataTypes.BIGINT.UNSIGNED
+    },
+    isRemoved: {
+        type: DataTypes.BOOLEAN
     }
 });
 

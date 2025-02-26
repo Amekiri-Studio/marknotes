@@ -16,6 +16,10 @@ const Comment = sequelize.define('comments', {
         type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false
     },
+    note: {
+        type: DataTypes.BIGINT.UNSIGNED,
+        allowNull: false
+    },
     upperComment: {
         type: DataTypes.BIGINT.UNSIGNED,
         allowNull: true
