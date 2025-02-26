@@ -6,8 +6,12 @@ import userRouterPaths from './user/Paths';
 import noteRouter from './note'
 import noteRouterPaths from './note/Paths'
 
+import followRouter from './follow'
+import followRouterPaths from './follow/Paths'
+
 const route = Router();
 route.use(userRouterPaths.base, userRouter);
 route.use(noteRouterPaths.base, noteRouter);
+route.use(followRouterPaths.base, followRouter);
 
 export default route;

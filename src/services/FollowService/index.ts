@@ -5,7 +5,7 @@ export interface IFollowService {
      * @param following 
      * @returns 
      */
-    follow: (followed: number, following: number) => Promise<any>;
+    follow: (followed: number | any, following: number | any) => Promise<any>;
 
     /**
      * 取消关注某人
@@ -13,21 +13,21 @@ export interface IFollowService {
      * @param following 
      * @returns 
      */
-    cancelFollow: (followed: number, following: number) => Promise<any>;
+    cancelFollow: (followed: number | any, following: number | any) => Promise<any>;
 
     /**
      * 列出某用户的关注列表
      * @param following 用户ID
      * @returns 
      */
-    listFollowed: (following: number) => Promise<any>;
+    listFollowed: (following: number | any) => Promise<any>;
 
     /**
      * 列出某用户的粉丝
      * @param followed 用户ID
      * @returns 
      */
-    listFollowing: (followed: number) => Promise<any>;
+    listFollowing: (followed: number | any) => Promise<any>;
 }
 
 export default IFollowService;
