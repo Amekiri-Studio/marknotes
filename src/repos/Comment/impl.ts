@@ -17,8 +17,16 @@ class CommontRepository implements ICommontRepository {
         return await Comment.create(commentData);
     }
 
-    async updateComment (cid: number, creator: number, commentData: { content: string; upperComment: number; }) {
-
+    async updateComment (cid: number, creator: number, content: string) {
+        return await Comment.update({
+            content
+        }, {
+            where: {
+                cid,
+                creator,
+                isRemoved: false
+            }
+        })
     }
 
     async removeComment (cid: number) {

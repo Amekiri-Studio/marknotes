@@ -16,7 +16,7 @@ export interface ICommontRepository {
      * @param commentData 笔记数据体
      * @returns 
      */
-    updateComment: (cid: number, creator: number, commentData: {content: string, upperComment: number}) => Promise<any>;
+    updateComment: (cid: number, creator: number, content: string) => Promise<any>;
 
     /**
      * 删除笔记评论
