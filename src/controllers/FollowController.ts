@@ -66,7 +66,16 @@ class FollowController {
     }
 
     static async check(req: IReq, res: IRes) {
-
+        try {
+            
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
     }
 }
 
