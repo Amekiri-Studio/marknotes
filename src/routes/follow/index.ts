@@ -87,4 +87,26 @@ router.get(Paths.listFollowed, FollowController.listFollowed);
  */
 router.get(Paths.listFollowing, FollowController.listFollowing);
 
+/**
+ * @swagger
+ * /v1/follow/check/{id}:
+ *  get:
+ *      summary: 检查当前用户是否已被"我"关注
+ *      description: 检查当前用户是否已被"我"关注
+ *      tags:
+ *        - Follow
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: 被关注用户ID
+ *        - in: header
+ *          name: x-mn-authorization
+ *          required: true
+ *          description: 登录后获取到的Token
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.get(Paths.check, FollowController.check);
+
 export default router;

@@ -64,6 +64,10 @@ class FollowController {
             })
         }
     }
+
+    static async check(req: IReq, res: IRes) {
+
+    }
 }
 
 export default FollowController;
