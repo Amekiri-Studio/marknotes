@@ -19,6 +19,13 @@ export interface TagRepository {
      * @returns 只返回笔记ID
      */
     listTagWithPost: (tagName: string) => Promise<any>;
+
+    /**
+     * 列出当前笔记的标签
+     * @param pid 笔记ID
+     * @returns 
+     */
+    listTagByPost: (pid: number) => Promise<any>;
 }
 
 export default TagRepository;

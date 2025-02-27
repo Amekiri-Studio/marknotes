@@ -8,17 +8,17 @@ class FollowRepository implements IFollowRepository {
     }
 
     static async createRepository() {
-        await Promise.all([authenticate(), syncModels({force: false})]);
+        await Promise.all([authenticate(), syncModels({ force: false })]);
         return new FollowRepository();
     }
 
-    async follow (followed: number, following: number) {
+    async follow(followed: number, following: number) {
         return await Follow.create({
             followed, following
         })
     }
 
-    async cancelFollow (followed: number, following: number) {
+    async cancelFollow(followed: number, following: number) {
         return await Follow.update({
             isRemoved: true
         }, {
@@ -28,24 +28,33 @@ class FollowRepository implements IFollowRepository {
         })
     }
 
-    async listFollowed (following: number) {
+    async listFollowed(following: number) {
         return await Follow.findAll({
             where: {
                 following,
-                isRemoved: true
+                isRemoved: false
             }
         })
     }
 
-    async listFollowing (followed: number) {
+    async listFollowing(followed: number) {
         return await Follow.findAll({
             where: {
                 followed,
-                isRemoved: true
+                isRemoved: false
             }
         })
     }
-    
+
+    async checkIsFollowed(following: number, followed: number) {
+        return await Follow.findOne({
+            where: {
+                following,
+                followed,
+                isRemoved: false
+            }
+        })
+    }
 }
 
 export default FollowRepository;

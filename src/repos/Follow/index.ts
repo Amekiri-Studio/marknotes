@@ -30,6 +30,13 @@ export interface IFollowRepository {
      * @returns 
      */
     listFollowing: (followed: number) => Promise<any>;
+
+    /**
+     * 检查当前用户是否已被"我"关注
+     * @param followed 
+     * @returns 
+     */
+    checkIsFollowed: (uid: number, followed: number) => Promise<any>;
 }
 
 export { FollowRepository }

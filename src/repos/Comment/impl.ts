@@ -1,4 +1,6 @@
+import Comment from "@src/models/Comment";
 import ICommontRepository from ".";
+import { sequelize, authenticate, syncModels } from '@src/database'
 
 class CommontRepository implements ICommontRepository {
 
@@ -6,8 +8,13 @@ class CommontRepository implements ICommontRepository {
         
     }
 
-    async addComment (commentData: { creator: number; content: string; note: number; upperComment: number; }) {
+    static async createRepository() {
+        await Promise.all([authenticate(), syncModels({ force: false })]);
+        return new CommontRepository();
+    }
 
+    async addComment (commentData: { creator: number; content: string; note: number; upperComment: number; }) {
+        return await Comment.create(commentData);
     }
 
     async updateComment (cid: number, creator: number, commentData: { content: string; upperComment: number; }) {
