@@ -69,7 +69,7 @@ class NoteService implements INoteService {
     }
 
     async removeNote (nid: number | any, creator: number | any) {
-        
+        return await this.noteRepository.removeNote(nid, creator);
     }
 
     async searchNote (keyword: string | any) {
