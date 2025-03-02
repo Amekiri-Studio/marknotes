@@ -28,6 +28,14 @@ export interface IFollowService {
      * @returns 
      */
     listFollowing: (followed: number | any) => Promise<any>;
+
+    /**
+     * 检查某人是否被"我"关注
+     * @param uid 
+     * @param followed 
+     * @returns 
+     */
+    checkIsFollowed: (uid: number | any, followed: number | any) => Promise<any>;
 }
 
 export default IFollowService;

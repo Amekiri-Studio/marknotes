@@ -1,6 +1,7 @@
 import { Sequelize, Model, DataTypes } from 'sequelize'
 import { sequelize } from '@src/database'
 import { Status } from '@src/common/constants';
+import UserRole from '@src/common/UserRole';
 
 const User = sequelize.define('users', {
 	uid: {
@@ -28,6 +29,11 @@ const User = sequelize.define('users', {
 	passwordSalt: {
 		type: DataTypes.STRING,
 		allowNull: false
+	},
+	role: {
+		type: DataTypes.TINYINT,
+		allowNull: false,
+		defaultValue: UserRole.Ordinary
 	},
 	userStatus: {
 		type: DataTypes.SMALLINT,

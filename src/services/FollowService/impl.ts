@@ -33,6 +33,14 @@ class FollowService implements IFollowService {
         return result;
     }
     
+    async checkIsFollowed(uid: number | any, followed: number | any) {
+        const result = await this.followRepository.checkIsFollowed(uid, followed);
+        if (result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 export default FollowService;

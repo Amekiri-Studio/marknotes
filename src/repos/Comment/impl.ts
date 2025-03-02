@@ -30,15 +30,29 @@ class CommontRepository implements ICommontRepository {
     }
 
     async removeComment (cid: number) {
-
+        return await Comment.update({
+            isRemoved: true
+        }, {
+            where: {
+                cid
+            }
+        });
     }
 
     async listComment (nid: number) {
-
+        return await Comment.findAll({
+            where: {
+                note: nid
+            }
+        })
     }
 
     async listCommentByUser (uid: number) {
-
+        return await Comment.findAll({
+            where: {
+                creator: uid
+            }
+        })
     }
     
 }
