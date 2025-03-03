@@ -5,7 +5,7 @@ export interface ICommentService {
      * @param commentData 
      * @returns 
      */
-    addComment: (commentData: { creator: number | any; content: string | any; note: number | any; upperComment: number | any; }) => Promise<any>;
+    addComment: (commentData: { creator: number | any; content: string | any; note: number | any; upperComment?: number | any; }) => Promise<any>;
 
     /**
      * 更新评论
@@ -19,9 +19,10 @@ export interface ICommentService {
     /**
      * 删除评论
      * @param cid 
+     * @param creator
      * @returns 
      */
-    removeComment: (cid: number | any) => Promise<any>;
+    removeComment: (cid: number | any, creator: number | any) => Promise<any>;
 
     /**
      * 列出当前笔记的所有评论
@@ -35,7 +36,7 @@ export interface ICommentService {
      * @param uid 
      * @returns 
      */
-    listCommentByUser: (uid: number) => Promise<any>;
+    listCommentByUser: (uid: number | any) => Promise<any>;
 }
 
 export { CommentService }

@@ -16,7 +16,7 @@ class CommentService implements ICommentService {
         return new CommentService(await CommentRepository.createRepository());
     }
 
-    async addComment(commentData: { creator: number | any; content: string | any; note: number | any; upperComment: number | any; }) {
+    async addComment(commentData: { creator: number | any; content: string | any; note: number | any; upperComment?: number | any; }) {
         if (typeof commentData.creator !== 'number' || typeof commentData.content !== 'string' || typeof commentData.note !== 'number') {
             throw new ArgumentError('commentData.creator and commentData.note must be numbers and ommentData.content must be a string');
         }
@@ -27,11 +27,11 @@ class CommentService implements ICommentService {
         return await this.commenRepository.updateComment(cid, creator, content);
     }
 
-    async removeComment(cid: number | any) {
+    async removeComment(cid: number | any, creator: number | any) {
         if (typeof cid !== 'number') {
             throw new ArgumentError('cid must be a number');
         }
-        return await this.commenRepository.removeComment(cid);
+        return await this.commenRepository.removeComment(cid, creator);
     }
 
     async listComment(nid: number | any) {
@@ -51,7 +51,7 @@ class CommentService implements ICommentService {
         }
     }
 
-    async listCommentByUser(uid: number) {
+    async listCommentByUser(uid: number | any) {
         return await this.commenRepository.listCommentByUser(uid);
     }
 

@@ -7,7 +7,7 @@ export interface ICommentRepository {
      * @param commentData 评论数据体
      * @returns 
      */
-    addComment: (commentData: {creator: number, content: string, note: number, upperComment: number}) => Promise<any>;
+    addComment: (commentData: {creator: number, content: string, note: number, upperComment?: number}) => Promise<any>;
 
     /**
      * 更新笔记评论
@@ -21,9 +21,10 @@ export interface ICommentRepository {
     /**
      * 删除笔记评论
      * @param cid 笔记ID
+     * @param creator 笔记创建者
      * @returns 
      */
-    removeComment: (cid: number) => Promise<any>;
+    removeComment: (cid: number, creator: number) => Promise<any>;
 
     /**
      * 列出当前笔记下的所有评论

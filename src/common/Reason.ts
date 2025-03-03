@@ -50,9 +50,19 @@ enum FailureReason {
     NOTE_NOT_PUBLIC_EDIT = -109,
 
     /**
-     * 失败原由：不允许编辑非本人的笔记
+     * 失败原因：不允许编辑非本人的笔记
      */
     NO_RIGHT_TO_EDIT_NOTE = -110,
+
+    /**
+     * 失败原因：不允许编辑非本人的评论
+     */
+    NO_RIGHT_TO_EDIT_COMMENT = -111,
+
+    /**
+     * 失败原因：不允许删除非本人的评论
+     */
+    NO_RIGHT_TO_REMOVE_COMMENT = -112,
 }
 
 export default FailureReason;

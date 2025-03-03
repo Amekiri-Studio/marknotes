@@ -13,7 +13,7 @@ class CommentRepository implements ICommentRepository {
         return new CommentRepository();
     }
 
-    async addComment (commentData: { creator: number; content: string; note: number; upperComment: number; }) {
+    async addComment (commentData: { creator: number; content: string; note: number; upperComment?: number; }) {
         return await Comment.create(commentData);
     }
 
@@ -29,7 +29,7 @@ class CommentRepository implements ICommentRepository {
         })
     }
 
-    async removeComment (cid: number) {
+    async removeComment (cid: number, creator: number) {
         return await Comment.update({
             isRemoved: true
         }, {
