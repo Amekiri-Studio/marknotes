@@ -25,7 +25,7 @@ class CommentRepository implements ICommentRepository {
             where: {
                 cid,
                 creator,
-                isRemoved: false
+                commentStatus: Status.Normal
             }
         })
     }
@@ -44,7 +44,8 @@ class CommentRepository implements ICommentRepository {
     async listComment (nid: number) {
         return await Comment.findAll({
             where: {
-                note: nid
+                note: nid,
+                commentStatus: Status.Normal
             }
         })
     }
@@ -52,7 +53,8 @@ class CommentRepository implements ICommentRepository {
     async listCommentByUser (uid: number) {
         return await Comment.findAll({
             where: {
-                creator: uid
+                creator: uid,
+                commentStatus: Status.Normal
             }
         })
     }

@@ -28,9 +28,6 @@ class CommentService implements ICommentService {
     }
 
     async removeComment(cid: number | any, creator: number | any) {
-        if (typeof cid !== 'number') {
-            throw new ArgumentError('cid must be a number');
-        }
         return await this.commenRepository.removeComment(cid, creator);
     }
 
