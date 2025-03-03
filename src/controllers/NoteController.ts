@@ -182,15 +182,19 @@ class NoteController {
             const tokenPayload: any = await NoteController.verifyUserLoginAuth(req, res);
             const { nid, title, content } = req.body;
 
-            const result = NoteController.noteService.updateNote(nid, tokenPayload.uid, { title, content });
+            const result = await NoteController.noteService.updateNote(nid, tokenPayload.uid, { title, content });
+            if (!result) {
+                res.json({
+                    code: RetCode.FAILURE,
+                    reason: FailureReason.NO_RIGHT_TO_EDIT_NOTE,
+                    message: 'no right to update'
+                })
+                return;
+            }
             res.json({
                 code: RetCode.SUCCESS,
                 message: 'Update successfully',
-                data: {
-                    nid,
-                    title,
-                    result
-                }
+                data: result
             })
         } catch (error) {
             console.error(error);
@@ -203,7 +207,22 @@ class NoteController {
     }
 
     static async edit(req: IReq, res: IRes) {
-        
+        try {
+            await NoteController.createService();
+            await NoteController.verifyUserLoginAuth(req, res);
+
+            const {nid, title, content} = req.body;
+
+            const result = await NoteController.noteService.editNote(nid, {title, content});
+            res.json(result);
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
     }
 
     static async search(req: IReq, res: IRes) {

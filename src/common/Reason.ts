@@ -43,6 +43,16 @@ enum FailureReason {
      * 失败原因：用户名已存在，无法使用
      */
     USERNAME_EXISTS = -108,
+
+    /**
+     * 失败原因：笔记不允许公开编辑
+     */
+    NOTE_NOT_PUBLIC_EDIT = -109,
+
+    /**
+     * 失败原由：不允许编辑非本人的笔记
+     */
+    NO_RIGHT_TO_EDIT_NOTE = -110,
 }
 
 export default FailureReason;

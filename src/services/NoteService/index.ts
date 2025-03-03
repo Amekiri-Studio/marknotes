@@ -83,6 +83,13 @@ export interface INoteService {
      * @returns 
      */
     listNote: (uid: number | any, isPublic: boolean) => Promise<any>;
+
+    /**
+     * 编辑笔记(编辑公开笔记)
+     * @param nid 
+     * @returns 
+     */
+    editNote: (nid: number | any, noteData: {title: string | any, content: string | any}) => Promise<any>;
 }
 
 export {NoteService}

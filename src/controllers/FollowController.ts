@@ -130,7 +130,9 @@ class FollowController {
             res.json({
                 code: RetCode.SUCCESS,
                 message: 'OK',
-                data: result
+                data: {
+                    followed: result
+                }
             })
         } catch (error) {
             console.error(error);

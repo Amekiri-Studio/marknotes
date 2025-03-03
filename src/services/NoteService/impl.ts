@@ -1,6 +1,8 @@
 import { ArgumentError } from "@src/common/Errors";
 import INoteService from ".";
 import INoteRepository, { NoteRepository } from "@src/repos/Note";
+import RetCode from "@src/common/RetCode";
+import FailureReason from "@src/common/Reason";
 
 class NoteService implements INoteService {
     private noteRepository: INoteRepository;
@@ -86,6 +88,26 @@ class NoteService implements INoteService {
         }
 
         return await this.noteRepository.listNote(uid, isPublic);
+    }
+
+    async editNote(nid: number | any, noteData: {title: string | any, content: string | any}) {
+        const noteBody = await this.noteRepository.getNoteById(nid);
+        if (!noteBody) {
+            return {
+                code: RetCode.FAILURE,
+                reason: FailureReason.NOTE_NOT_PUBLIC_EDIT,
+                message: 'Note are private to edit'
+            }
+        }
+
+        const creator = noteBody.creator;
+
+        const result = await this.noteRepository.updateNote(nid, creator, noteData);
+        return {
+            code: RetCode.SUCCESS,
+            message: 'OK',
+            data: result
+        }
     }
 }
 

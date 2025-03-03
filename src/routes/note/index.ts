@@ -74,10 +74,10 @@ router.get(Paths.get, NoteController.get);
 
 /**
  * @swagger
- * /v1/note/update/{id}:
+ * /v1/note/update:
  *  put:
  *      summary: 更新笔记
- *      description: 更新笔记(若编辑非本人的笔记，请使用/v1/note/edit/:id接口)
+ *      description: 更新笔记(若编辑非本人的笔记，请使用/v1/note/edit接口)
  *      tags:
  *        - Note
  *      requestBody:
@@ -110,7 +110,7 @@ router.put(Paths.update, NoteController.update);
 
 /**
  * @swagger
- * /v1/note/edit/{id}:
+ * /v1/note/edit:
  *  put:
  *      summary: 编辑笔记(编辑公开/他人笔记)
  *      description: 编辑笔记(编辑公开/他人笔记)
