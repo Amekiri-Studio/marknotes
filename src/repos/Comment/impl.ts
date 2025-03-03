@@ -1,6 +1,7 @@
 import Comment from "@src/models/Comment";
 import ICommentRepository from ".";
 import { sequelize, authenticate, syncModels } from '@src/database'
+import { Status } from "@src/common/constants";
 
 class CommentRepository implements ICommentRepository {
 
@@ -31,10 +32,11 @@ class CommentRepository implements ICommentRepository {
 
     async removeComment (cid: number, creator: number) {
         return await Comment.update({
-            isRemoved: true
+            commentStatus: Status.Removed
         }, {
             where: {
-                cid
+                cid,
+                creator
             }
         });
     }

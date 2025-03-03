@@ -21,7 +21,7 @@ class CommentController {
 
             const tokenPayload: any = await CommentController.verifyUserLoginAuth(req, res);
             const { content, note, upperComment } = req.body;
-            const result = CommentController.commentService.addComment({
+            const result = await CommentController.commentService.addComment({
                 creator: tokenPayload.uid,
                 content: content,
                 note: note,

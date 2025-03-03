@@ -13,7 +13,7 @@ const Comment = sequelize.define('comments', {
         allowNull: false
     },
     content: {
-        type: DataTypes.BIGINT.UNSIGNED,
+        type: DataTypes.TEXT('long'),
         allowNull: false
     },
     note: {

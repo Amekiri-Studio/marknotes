@@ -49,6 +49,8 @@ class CommentService implements ICommentService {
                 result[i].creator = userData;
             }
         }
+
+        return result;
     }
 
     async listCommentByUser(uid: number | any) {

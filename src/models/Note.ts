@@ -22,7 +22,7 @@ const Note = sequelize.define('notes', {
         defaultValue: 'zh-cn'
     },
     content: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT('long'),
         allowNull: false
     },
     isShare: {
