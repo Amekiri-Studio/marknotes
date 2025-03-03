@@ -178,7 +178,7 @@ router.delete(Paths.remove, NoteController.remove);
  *      parameters:
  *        - in: path
  *          name: keyword
- *          description: 笔记ID
+ *          description: 笔记关键词
  *          schema:
  *              type: string
  *      responses:
