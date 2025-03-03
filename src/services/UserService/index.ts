@@ -62,6 +62,13 @@ export interface IUserService {
      * @returns 
      */
     updatePassword: (uid: number ,oldPass: string | any, newPass: string | any) => Promise<any>;
+
+    /**
+     * 批量查询用户(通过UID)
+     * @param ids 
+     * @returns 
+     */
+    getUserByIds: (ids: Array<number> | any) => Promise<any>;
 }
 
 export { UserService }

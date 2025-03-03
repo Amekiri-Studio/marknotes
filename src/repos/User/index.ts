@@ -76,6 +76,13 @@ export interface IUserRepository {
      * @returns 
      */
     queryIdAndPwd: (uid: number, password: string) => Promise<any>;
+
+    /**
+     * 批量查询用户(通过用户ID)
+     * @param ids 
+     * @returns 
+     */
+    getUserByIds: (ids: Array<number>) => Promise<any>;
 }
 
 export { UserRepository };

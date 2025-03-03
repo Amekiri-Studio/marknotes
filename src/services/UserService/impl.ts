@@ -210,6 +210,10 @@ class UserService implements IUserService {
             data: result
         }
     }
+
+    async getUserByIds(ids: Array<number> | any) {
+        return await this.userRepository.getUserByIds(ids);
+    }
 }
 
 export default UserService;
