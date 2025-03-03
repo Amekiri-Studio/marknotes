@@ -7,7 +7,7 @@ import IUserService, { UserService } from "@src/services/UserService";
 import { decodeToken } from "@src/util/token";
 
 class FollowController {
-    static followService : IFollowService;
+    static followService: IFollowService;
 
     static async createService() {
         if (!FollowController.followService) {
@@ -158,7 +158,7 @@ class FollowController {
 
         const decodePayload: any = decodeToken(authorizationHeader);
 
-        const userService : IUserService = await UserService.createService();
+        const userService: IUserService = await UserService.createService();
 
         if (!(await userService.verifyPasshashCorrection(decodePayload.uid, decodePayload.password))) {
             res.json({

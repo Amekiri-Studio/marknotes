@@ -9,9 +9,13 @@ import noteRouterPaths from './note/Paths'
 import followRouter from './follow'
 import followRouterPaths from './follow/Paths'
 
+import commentRouter from './comment';
+import commentRouterPaths from './comment/Paths'
+
 const route = Router();
 route.use(userRouterPaths.base, userRouter);
 route.use(noteRouterPaths.base, noteRouter);
 route.use(followRouterPaths.base, followRouter);
+route.use(commentRouterPaths.base, commentRouter);
 
 export default route;
