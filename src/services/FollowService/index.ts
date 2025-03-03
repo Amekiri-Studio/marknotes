@@ -1,3 +1,4 @@
+import FollowService from "./impl";
 export interface IFollowService {
     /**
      * 关注某人
@@ -37,5 +38,7 @@ export interface IFollowService {
      */
     checkIsFollowed: (uid: number | any, followed: number | any) => Promise<any>;
 }
+
+export { FollowService }
 
 export default IFollowService;

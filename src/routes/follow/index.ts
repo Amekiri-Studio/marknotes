@@ -54,7 +54,7 @@ router.post(Paths.cancelFollow, FollowController.cancelFollow);
 /**
  * @swagger
  * /v1/follow/list/{id}:
- *  post:
+ *  get:
  *      summary: 列出某人的关注
  *      description: 列出某人的关注
  *      tags:
@@ -72,7 +72,7 @@ router.get(Paths.listFollowed, FollowController.listFollowed);
 /**
  * @swagger
  * /v1/follow/list/following/{id}:
- *  post:
+ *  get:
  *      summary: 列出某人的粉丝
  *      description: 列出某人的粉丝
  *      tags:
