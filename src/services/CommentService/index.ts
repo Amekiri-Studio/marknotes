@@ -1,4 +1,5 @@
-export interface CommentService {
+import CommentService from "./impl";
+export interface ICommentService {
     /**
      * 添加评论
      * @param commentData 
@@ -37,4 +38,6 @@ export interface CommentService {
     listCommentByUser: (uid: number) => Promise<any>;
 }
 
-export default CommentService;
+export { CommentService }
+
+export default ICommentService;

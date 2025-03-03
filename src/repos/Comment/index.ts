@@ -1,6 +1,6 @@
-import CommontRepository from "./impl";
+import CommentRepository from "./impl";
 
-export interface ICommontRepository {
+export interface ICommentRepository {
     
     /**
      * 添加笔记评论
@@ -40,6 +40,6 @@ export interface ICommontRepository {
     listCommentByUser: (uid: number) => Promise<any>;
 }
 
-export { CommontRepository }
+export { CommentRepository }
 
-export default ICommontRepository;
+export default ICommentRepository;
