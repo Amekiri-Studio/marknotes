@@ -91,14 +91,11 @@ class NoteRepository implements INoteRepository {
     async searchNote(keyword: string) {
         return await Note.findAll({
             where: {
-                [Op.or]: [
-                    { title: { [Op.like]: `%${keyword}%` } },
-                    { content: { [Op.like]: `%${keyword}%` } }
-                ],
+                [Op.and]: Sequelize.literal(`MATCH(title, content) AGAINST(:keyword IN BOOLEAN MODE)`),
                 isShare: true,
                 noteStatus: Status.Normal
             },
-            replacements: { keyword }
+            replacements: { keyword: `${keyword}*` }
         })
     }
 
