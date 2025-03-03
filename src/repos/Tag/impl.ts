@@ -1,0 +1,43 @@
+import Tag from "@src/models/Tag";
+import ITagRepository from ".";
+
+class TagRepository implements ITagRepository {
+    async addTags(tagData: Array<{ tagName: string, associatedNote: string }>) {
+        return await Tag.bulkCreate(tagData);
+    }
+
+    async removeTags(tagIds: Array<number>) {
+        const valueArray = [];
+        for (let i = 0; i < tagIds.length; i++) {
+            const val = {
+                tid: tagIds[i],
+                isRemoved: true
+            }
+
+            valueArray.push(val);
+        }
+
+        return await Tag.bulkCreate(valueArray, {
+            updateOnDuplicate: ['isRemoved']
+        })
+    }
+
+    async listTagWithNote(tagName: string) {
+        return await Tag.findAll({
+            where: {
+                tagName
+            }
+        })
+    }
+
+    async listTagsByNote(pid: number) {
+        return await Tag.findAll({
+            where: {
+                associatedNote: pid
+            }
+        })
+    }
+
+}
+
+export default TagRepository;
