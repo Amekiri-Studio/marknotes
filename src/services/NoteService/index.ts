@@ -90,6 +90,8 @@ export interface INoteService {
      * @returns 
      */
     editNote: (nid: number | any, noteData: {title: string | any, content: string | any}) => Promise<any>;
+
+    getNoteByIds: (nids: Array<Number> | any) => Promise<any>;
 }
 
 export {NoteService}

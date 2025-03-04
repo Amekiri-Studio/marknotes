@@ -1,10 +1,11 @@
+import TagRepository from "./impl";
 export interface ITagRepository {
     /**
      * 添加标签(Tag)
      * @param tagData 标签数据体
      * @returns 
      */
-    addTags: (tagData: Array<{tagName: string, associatedNote: string}>) => Promise<any>;
+    addTags: (tagData: Array<{tagName: string, associatedNote: number}>) => Promise<any>;
 
     /**
      * 删除标签
@@ -26,6 +27,15 @@ export interface ITagRepository {
      * @returns 
      */
     listTagsByNote: (pid: number) => Promise<any>;
+
+    /**
+     * 列出笔记对应的标签(批量)
+     * @param pids 
+     * @returns 
+     */
+    listTagsByNotes: (pids: Array<number>) => Promise<any>;
 }
+
+export { TagRepository }
 
 export default ITagRepository;

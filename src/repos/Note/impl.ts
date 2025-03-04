@@ -103,9 +103,20 @@ class NoteRepository implements INoteRepository {
         return await Note.findAll({
             where: {
                 isShare: isPublic,
-                creator: uid
+                creator: uid,
+                noteStatus: Status.Normal
             }
         });
+    }
+
+    async getNoteByIds(ids: Array<number>, isShare: boolean = true) {
+        return await Note.findAll({
+            where: {
+                isShare,
+                noteStatus: Status.Normal,
+                nid: ids
+            }
+        })
     }
 }
 

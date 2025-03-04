@@ -1,8 +1,18 @@
 import Tag from "@src/models/Tag";
 import ITagRepository from ".";
+import { authenticate, syncModels } from "@src/database";
 
 class TagRepository implements ITagRepository {
-    async addTags(tagData: Array<{ tagName: string, associatedNote: string }>) {
+    private constructor() {
+
+    }
+
+    static async createRepository() {
+        await Promise.all([authenticate(), syncModels({force: false})]);
+        return new TagRepository();
+    }
+
+    async addTags(tagData: Array<{ tagName: string, associatedNote: number }>) {
         return await Tag.bulkCreate(tagData);
     }
 
@@ -33,11 +43,20 @@ class TagRepository implements ITagRepository {
     async listTagsByNote(pid: number) {
         return await Tag.findAll({
             where: {
-                associatedNote: pid
+                associatedNote: pid,
+                isRemoved: false
             }
         })
     }
 
+    async listTagsByNotes(nids: Array<number>) {
+        return await Tag.findAll({
+            where: {
+                associateNote: nids,
+                isRemoved: false
+            }
+        });
+    }
 }
 
 export default TagRepository;

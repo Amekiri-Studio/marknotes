@@ -77,6 +77,13 @@ export interface INoteRepository {
      * @returns 
      */
     listNote: (uid: number, isPublic: boolean) => Promise<any>;
+
+    /**
+     * 批量查询笔记(通过ID)
+     * @param nids 笔记ID，数组
+     * @returns 
+     */
+    getNoteByIds: (nids: Array<number>, isShare: boolean) => Promise<any>;
 }
 
 export { NoteRepository }

@@ -109,6 +109,10 @@ class NoteService implements INoteService {
             data: result
         }
     }
+
+    async getNoteByIds(nids: Array<any> | any) {
+        
+    }
 }
 
 export default NoteService;
