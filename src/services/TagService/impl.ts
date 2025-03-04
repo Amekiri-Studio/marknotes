@@ -28,7 +28,10 @@ class TagService implements ITagService {
         }
 
         const notes = await this.noteService.getNoteByIds(noteIds);
+
+        return notes;
     }
+
     async listTagsByNote(pid: number | any) {
         return await this.tagRepository.listTagsByNote(pid);
     }
