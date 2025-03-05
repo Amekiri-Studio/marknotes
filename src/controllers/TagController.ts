@@ -17,7 +17,17 @@ class TagController {
 
     static async add(req: IReq, res: IRes) {
         try {
-            
+            await TagController.createService();
+
+            await TagController.verifyUserLoginAuth(req, res);
+
+            const tags = req.body.tags;
+            const result = await TagController.tagService.addTags(tags);
+            res.status(HttpStatusCodes.OK).json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: result
+            })
         } catch (error) {
             console.error(error);
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -30,7 +40,17 @@ class TagController {
 
     static async remove(req: IReq, res: IRes) {
         try {
-            
+            await TagController.createService();
+
+            await TagController.verifyUserLoginAuth(req, res);
+
+            const tags = req.body.tags;
+            const result = await TagController.tagService.removeTags(tags);
+            res.status(HttpStatusCodes.OK).json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: result
+            })
         } catch (error) {
             console.error(error);
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -43,7 +63,16 @@ class TagController {
 
     static async listTagWithNote(req: IReq, res: IRes) {
         try {
-            
+            await TagController.createService();
+
+            const tag = req.params.tag;
+            const result = await TagController.tagService.listTagWithNote(tag);
+
+            res.status(HttpStatusCodes.OK).json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: result
+            });
         } catch (error) {
             console.error(error);
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -56,7 +85,16 @@ class TagController {
 
     static async listTagsByNote(req: IReq, res: IRes) {
         try {
-            
+            await TagController.createService();
+
+            const id = req.params.id;
+            const result = await TagController.tagService.listTagsByNote(id);
+
+            res.status(HttpStatusCodes.OK).json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: result
+            });
         } catch (error) {
             console.error(error);
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
