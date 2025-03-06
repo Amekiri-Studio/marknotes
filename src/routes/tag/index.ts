@@ -135,7 +135,7 @@ router.get(Paths.list, TagController.listTagWithNote);
 
 /**
  * @swagger
- * /v1/tag/list/note/:id:
+ * /v1/tag/list/note/{id}:
  *  get:
  *      summary: 查找笔记对应的标签
  *      description: 查找笔记对应的标签
