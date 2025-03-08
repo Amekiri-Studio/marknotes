@@ -1,4 +1,3 @@
-
 export default {
     base: '/user',
     add: '/add',
@@ -8,5 +7,6 @@ export default {
     updatePwd: '/update/password',
     updateAvatar: '/update/avatar',
     remove: '/remove',
-    login: '/login'
+    login: '/login',
+    profile: '/profile'
 } as const

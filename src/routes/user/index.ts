@@ -228,4 +228,23 @@ router.delete(Paths.remove, UserController.remove);
  */
 router.post(Paths.login, UserController.login);
 
+/**
+ * @swagger
+ * /v1/user/profile:
+ *  get:
+ *      summary: 获取登录用户的个人信息
+ *      description: 获取登录用户的个人信息
+ *      tags:
+ *        - User
+ *      parameters:
+ *        - in: header
+ *          name: x-mn-authorization
+ *          required: true
+ *          description: 登录后获取到的Token
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.get(Paths.profile, UserController.getUserProfile);
+
 export default router;
