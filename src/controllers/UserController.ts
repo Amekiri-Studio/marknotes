@@ -312,6 +312,29 @@ class UserController {
         }
     }
 
+    static async getUserProfile(req: IReq, res: IRes) {
+        try {
+            await UserController.createService();
+
+            const tokenPayload: any = await UserController.verifyUserLoginAuth(req, res);
+
+            const userProfile = await this.userService.getUserById(tokenPayload.uid);
+
+            res.status(HttpStatusCodes.OK).json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: userProfile
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
+    }
+
     private static async verifyUserLoginAuth(req: IReq, res: IRes) {
         const authorizationHeader = req.headers['x-mn-authorization'];
 
