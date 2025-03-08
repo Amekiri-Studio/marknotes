@@ -68,8 +68,8 @@ router.post(Paths.add, TagController.add);
 
 /**
  * @swagger
- * /v1/tag/delete:
- *  delete:
+ * /v1/tag/remove:
+ *  remove:
  *      summary: 批量删除标签
  *      description: 根据标签名称和关联笔记ID批量删除标签
  *      tags:
