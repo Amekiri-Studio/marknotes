@@ -318,7 +318,7 @@ class UserController {
 
             const tokenPayload: any = await UserController.verifyUserLoginAuth(req, res);
 
-            const userProfile = await this.userService.getUserById(tokenPayload.uid);
+            const userProfile = await UserController.userService.getUserById(tokenPayload.uid);
 
             res.status(HttpStatusCodes.OK).json({
                 code: RetCode.SUCCESS,
