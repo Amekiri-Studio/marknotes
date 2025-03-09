@@ -18,6 +18,10 @@ const User = sequelize.define('users', {
 		type: DataTypes.STRING,
 		allowNull: false
 	},
+	bio: {
+		type: DataTypes.STRING,
+		allowNull: true
+	},
 	avatar: {
 		type: DataTypes.STRING,
 		allowNull: true
