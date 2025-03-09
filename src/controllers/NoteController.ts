@@ -129,6 +129,15 @@ class NoteController {
 
             const result = await NoteController.noteService.getNoteById(id);
 
+            if (!result) {
+                res.json({
+                    code: RetCode.FAILURE,
+                    reason: FailureReason.NOTE_NOT_EXISTS,
+                    message: "Note doesn't exist"
+                })
+                return;
+            }
+
             if (!result.isShare) {
                 const userService = await UserService.createService();
                 const authorizationHeader = req.headers['x-mn-authorization'];

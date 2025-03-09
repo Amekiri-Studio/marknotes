@@ -63,6 +63,11 @@ enum FailureReason {
      * 失败原因：不允许删除非本人的评论
      */
     NO_RIGHT_TO_REMOVE_COMMENT = -112,
+
+    /**
+     * 失败原因：笔记不存在
+     */
+    NOTE_NOT_EXISTS = -113,
 }
 
 export default FailureReason;
