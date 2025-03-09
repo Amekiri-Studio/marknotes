@@ -65,6 +65,8 @@ class UserService implements IUserService {
                 return await this.userRepository.updateNickname(uid, value);
             case UserInfoType.AVATAR:
                 return await this.userRepository.updateAvatar(uid, value);
+            case UserInfoType.BIO:
+                return await this.userRepository.updateUserBio(uid, value);
         }
     }
 

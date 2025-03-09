@@ -74,6 +74,16 @@ class UserRepository implements IUserRepository {
         })
     }
 
+    async updateUserBio(uid: number, bio: string) {
+        return await User.update({
+            bio
+        }, {
+            where: {
+                uid
+            }
+        })
+    }
+
     async removeUser(uid: number) {
         return await User.update({
             userStatus: Status.Removed

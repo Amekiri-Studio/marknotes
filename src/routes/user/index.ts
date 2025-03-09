@@ -85,7 +85,7 @@ router.get(Paths.getName, UserController.getName);
  * /v1/user/update:
  *  put:
  *      summary: 更新用户个人信息
- *      description: 可更新用户名，昵称
+ *      description: 可更新用户名，昵称，个人介绍
  *      tags:
  *        - User
  *      parameters:
@@ -102,7 +102,7 @@ router.get(Paths.getName, UserController.getName);
  *                      properties:
  *                          userInfoType:
  *                              type: string
- *                              description: 用户信息类别，只能在'username'，'nickname'中选择
+ *                              description: 用户信息类别，只能在'username'，'nickname'，'bio'中选择
  *                          value:
  *                              type: string
  *                              description: 值。如果userInfoType是'username'，value是'user1'，用户名会被修改为'user1'

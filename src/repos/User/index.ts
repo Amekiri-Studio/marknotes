@@ -55,6 +55,14 @@ export interface IUserRepository {
     updateAvatar: (uid: number, avatar: string) => Promise<any>;
 
     /**
+     * 更新用户个人介绍
+     * @param uid 用户ID
+     * @param bio 个人介绍内容
+     * @returns 
+     */
+    updateUserBio: (uid: number, bio: string) => Promise<any>;
+
+    /**
      * 删除用户
      * @param uid 用户ID
      * @returns 

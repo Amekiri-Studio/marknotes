@@ -3,6 +3,7 @@ enum UserInfoType {
     NICKNAME = 'nickname',
     PASSWORD = 'password',
     AVATAR = 'avatar',
+    BIO = 'bio'
 }
 
 export default UserInfoType;

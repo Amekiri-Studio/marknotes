@@ -23,7 +23,7 @@ export interface IUserService {
 
     /**
      * 更新用户信息
-     * @param userInfoType 必须在UserInfoType.USERNAME，UserInfoType.NICKNAME，UserInfoType.AVATAR中选择
+     * @param userInfoType 必须在UserInfoType.USERNAME，UserInfoType.NICKNAME，UserInfoType.AVATAR, UserInfoType.BIO中选择
      * @param uid 用户ID
      * @param value 欲修改的值
      * @returns 
