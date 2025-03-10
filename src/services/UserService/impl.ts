@@ -54,8 +54,12 @@ class UserService implements IUserService {
     }
 
     async updateUserInfo(userInfoType: UserInfoType, uid: string | any, value: string | any) {
-        if (typeof uid !== 'number' || typeof value !== 'string') {
-            throw new ArgumentError("'uid' must be a number and 'value' must be a string");
+        if (userInfoType === UserInfoType.BIO) {
+
+        } else {
+            if (typeof uid !== 'number' || typeof value !== 'string') {
+                throw new ArgumentError("'uid' must be a number and 'value' must be a string");
+            }
         }
 
         switch (userInfoType) {
