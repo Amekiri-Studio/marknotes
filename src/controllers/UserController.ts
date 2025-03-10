@@ -15,7 +15,7 @@ class UserController {
     static userService: IUserService;
     static iterations = 10000;
 
-    static avatarPath = './public/images/avatar';
+    static avatarPath = './src/public/images/avatar';
 
     static avatarStorage = multer.diskStorage({
         destination: (req, file, cb) => {
