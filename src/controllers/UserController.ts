@@ -158,7 +158,7 @@ class UserController {
                         code: RetCode.BAD_REQUEST,
                         message: 'UserInfoType error!'
                     })
-                    break;
+                    return;
             }
 
             res.json({
