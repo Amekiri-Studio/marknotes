@@ -151,6 +151,8 @@ class UserController {
                 case UserInfoType.NICKNAME:
                     result = await UserController.userService.updateUserInfo(UserInfoType.NICKNAME, tokenPayload.uid, value);
                     break;
+                case UserInfoType.BIO:
+                    result = await UserController.userService.updateUserInfo(UserInfoType.BIO, tokenPayload.uid, value);
                 default: 
                     res.status(HttpStatusCodes.BAD_REQUEST).json({
                         code: RetCode.BAD_REQUEST,
