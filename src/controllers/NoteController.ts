@@ -13,7 +13,7 @@ import fs from 'fs'
 class NoteController {
     static noteService: INoteService;
 
-    static noteImagePath = './public/images/notes';
+    static noteImagePath = './src/public/images/notes';
 
     static noteImageStorage = multer.diskStorage({
         destination: (req, file, cb) => {
