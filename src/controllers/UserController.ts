@@ -153,6 +153,7 @@ class UserController {
                     break;
                 case UserInfoType.BIO:
                     result = await UserController.userService.updateUserInfo(UserInfoType.BIO, tokenPayload.uid, value);
+                    break;
                 default: 
                     res.status(HttpStatusCodes.BAD_REQUEST).json({
                         code: RetCode.BAD_REQUEST,
