@@ -1,6 +1,7 @@
 import Tag from "@src/models/Tag";
 import ITagRepository from ".";
 import { authenticate, syncModels } from "@src/database";
+import { where } from "sequelize";
 
 class TagRepository implements ITagRepository {
     private constructor() {
@@ -17,19 +18,20 @@ class TagRepository implements ITagRepository {
     }
 
     async removeTags(tagIds: Array<number>) {
-        const valueArray = [];
+        console.log(tagIds);
+        const ids = [];
         for (let i = 0; i < tagIds.length; i++) {
-            const val = {
-                tid: tagIds[i],
-                isRemoved: true
-            }
-
-            valueArray.push(val);
+            ids.push(tagIds[i])
         }
 
-        return await Tag.bulkCreate(valueArray, {
-            updateOnDuplicate: ['isRemoved']
+        return await Tag.update({
+            isRemoved: true
+        }, {
+            where: {
+                tid: ids
+            }
         })
+
     }
 
     async removeTag(tid: number) {

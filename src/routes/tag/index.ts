@@ -105,7 +105,7 @@ router.delete(Paths.remove, TagController.remove);
 
 /**
  * @swagger
- * /v1/tag/remove/tags:
+ * /v1/tag/remove/tag/ids:
  *  delete:
  *      summary: 批量删除标签
  *      description: 根据标签名称和关联笔记ID批量删除标签
