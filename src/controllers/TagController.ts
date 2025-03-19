@@ -61,6 +61,29 @@ class TagController {
         }
     }
 
+    static async removeTags(req: IReq, res: IRes) {
+        try {
+            await TagController.createService();
+
+            await TagController.verifyUserLoginAuth(req, res);
+
+            const tagIds = req.body.tagIds;
+            const result = await TagController.tagService.removeTags(tagIds);
+            res.status(HttpStatusCodes.OK).json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: result
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
+    }
+
     static async listTagWithNote(req: IReq, res: IRes) {
         try {
             await TagController.createService();

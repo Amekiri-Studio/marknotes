@@ -70,6 +70,43 @@ router.post(Paths.add, TagController.add);
  * @swagger
  * /v1/tag/remove:
  *  delete:
+ *      summary: 删除单个标签
+ *      description: 根据标签名称和关联笔记ID批量删除标签
+ *      tags:
+ *        - Tag
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          schema:
+ *              type: number
+ *        - in: header
+ *          name: x-mn-authorization
+ *          required: true
+ *          schema:
+ *            type: string
+ *          description: 登录后获取到的Token
+ *      responses:
+ *          '200':
+ *              description: 删除成功
+ *              content:
+ *                application/json:
+ *                  schema:
+ *                    type: object
+ *                    properties:
+ *                      code:
+ *                        type: integer
+ *                        example: 0
+ *                      deletedCount:
+ *                        type: integer
+ *                        example: 2
+ */
+router.delete(Paths.remove, TagController.remove);
+
+/**
+ * @swagger
+ * /v1/tag/remove/tags:
+ *  delete:
  *      summary: 批量删除标签
  *      description: 根据标签名称和关联笔记ID批量删除标签
  *      tags:
@@ -110,7 +147,7 @@ router.post(Paths.add, TagController.add);
  *                        type: integer
  *                        example: 2
  */
-router.delete(Paths.remove, TagController.remove);
+router.delete(Paths.removeTags, TagController.removeTags);
 
 /**
  * @swagger
