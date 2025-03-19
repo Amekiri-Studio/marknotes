@@ -32,6 +32,16 @@ class TagRepository implements ITagRepository {
         })
     }
 
+    async removeTag(tid: number) {
+        return await Tag.update({
+            isRemoved: true
+        }, {
+            where: {
+                tid
+            }
+        })
+    }
+
     async listTagWithNote(tagName: string) {
         return await Tag.findAll({
             where: {

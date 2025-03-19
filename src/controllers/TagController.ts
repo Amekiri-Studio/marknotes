@@ -44,8 +44,8 @@ class TagController {
 
             await TagController.verifyUserLoginAuth(req, res);
 
-            const tags = req.body.tags;
-            const result = await TagController.tagService.removeTags(tags);
+            const tagId = req.params.id;
+            const result = await TagController.tagService.removeTag(tagId);
             res.status(HttpStatusCodes.OK).json({
                 code: RetCode.SUCCESS,
                 message: 'OK',

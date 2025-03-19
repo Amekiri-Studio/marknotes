@@ -21,6 +21,10 @@ class TagService implements ITagService {
         return await this.tagRepository.removeTags(tagIds);
     }
 
+    async removeTag(tid: number | any) {
+        return await this.tagRepository.removeTag(tid);
+    }
+
     async listTagWithNote(tagName: string | any) {
         const noteIds = await this.tagRepository.listTagWithNote(tagName);
         if (!this.noteService) {

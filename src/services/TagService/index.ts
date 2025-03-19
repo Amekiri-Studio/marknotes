@@ -16,6 +16,13 @@ export interface ITagService {
     removeTags: (tagIds: Array<number> | any) => Promise<any>;
 
     /**
+     * 删除标签
+     * @param tid 
+     * @returns 
+     */
+    removeTag: (tid: number | any) => Promise<any>;
+
+    /**
      * 列出与标签有关的笔记
      * @param tagName 
      * @returns 

@@ -1,7 +1,7 @@
 export default {
     base: '/tag',
     add: '/add',
-    remove: '/remove',
+    remove: '/remove/:id',
     list: '/list/:tag',
     listByNote: '/list/note/:id'
 } as const;
