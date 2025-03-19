@@ -250,7 +250,7 @@ router.get(Paths.listById, NoteController.listById);
  *          '200':
  *              description: OK
  */
-router.post(Paths.image, NoteController.uploadImage);
+router.post(Paths.image, NoteController.noteImageUpload.single('image'), NoteController.uploadImage);
 
 /**
  * @swagger
