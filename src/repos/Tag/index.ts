@@ -41,6 +41,12 @@ export interface ITagRepository {
      * @returns 
      */
     listTagsByNotes: (pids: Array<number>) => Promise<any>;
+
+    /**
+     * 列出所有标签
+     * @returns 
+     */
+    listTags: () => Promise<any>;
 }
 
 export { TagRepository }

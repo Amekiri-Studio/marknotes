@@ -69,6 +69,14 @@ class TagRepository implements ITagRepository {
             }
         });
     }
+
+    async listTags() {
+        return await Tag.findAll({
+            where: {
+                isRemoved: false
+            }
+        });
+    }
 }
 
 export default TagRepository;

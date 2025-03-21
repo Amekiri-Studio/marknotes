@@ -40,6 +40,9 @@ class TagService implements ITagService {
         return await this.tagRepository.listTagsByNote(pid);
     }
 
+    async listTags() {
+        return await this.tagRepository.listTags();
+    }
 }
 
 export default TagService;

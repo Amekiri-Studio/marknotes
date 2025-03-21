@@ -191,4 +191,18 @@ router.get(Paths.list, TagController.listTagWithNote);
  */
 router.get(Paths.listByNote, TagController.listTagsByNote);
 
+/**
+ * @swagger
+ * /v1/tag/recommend:
+ *  get:
+ *      summary: 列出推荐标签
+ *      description: 列出推荐标签
+ *      tags:
+ *        - Tag
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.get(Paths.recommend, TagController.recommend);
+
 export default router;

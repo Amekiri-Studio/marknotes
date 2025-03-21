@@ -128,6 +128,27 @@ class TagController {
         }
     }
 
+    static async recommend(req: IReq, res: IRes) {
+        try {
+            await TagController.createService();
+
+            const tags = await TagController.tagService.listTags();
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: tags
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
+    }
+
     private static async verifyUserLoginAuth(req: IReq, res: IRes) {
         const authorizationHeader = req.headers['x-mn-authorization'];
 

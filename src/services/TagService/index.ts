@@ -35,6 +35,12 @@ export interface ITagService {
      * @returns 
      */
     listTagsByNote: (pid: number | any) => Promise<any>;
+
+    /**
+     * 列出所有标签
+     * @returns 
+     */
+    listTags: () => Promise<any>;
 }
 
 export { TagService }
