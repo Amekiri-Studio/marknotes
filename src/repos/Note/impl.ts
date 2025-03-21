@@ -118,6 +118,15 @@ class NoteRepository implements INoteRepository {
             }
         })
     }
+
+    async listNotes() {
+        return await Note.findAll({
+            where: {
+                isShare: true,
+                noteStatus: Status.Normal
+            }
+        })
+    }
 }
 
 export default NoteRepository;

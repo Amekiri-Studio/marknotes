@@ -84,6 +84,12 @@ export interface INoteRepository {
      * @returns 
      */
     getNoteByIds: (nids: Array<number>, isShare: boolean) => Promise<any>;
+
+    /**
+     * 列出笔记
+     * @returns 
+     */
+    listNotes: () => Promise<any>;
 }
 
 export { NoteRepository }

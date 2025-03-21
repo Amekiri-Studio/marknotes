@@ -8,6 +8,7 @@ export default {
     remove: '/remove/:id',
     list: '/list',
     listById: '/list/:id',
+    recommend: '/recommend',
     image: '/image',
     setPublic: '/public/:id',
     setPrivate: '/private/:id',

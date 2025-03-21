@@ -91,7 +91,18 @@ export interface INoteService {
      */
     editNote: (nid: number | any, noteData: {title: string | any, content: string | any}) => Promise<any>;
 
-    getNoteByIds: (nids: Array<Number> | any) => Promise<any>;
+    /**
+     * 通过多个ID查询笔记
+     * @param nids 
+     * @returns 
+     */
+    getNoteByIds: (nids: Array<Number> | any, isShare: boolean) => Promise<any>;
+
+    /**
+     * 列出笔记
+     * @returns 
+     */
+    listNotes: () => Promise<any>;
 }
 
 export {NoteService}

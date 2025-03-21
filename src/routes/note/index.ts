@@ -226,6 +226,21 @@ router.get(Paths.list, NoteController.list);
  */
 router.get(Paths.listById, NoteController.listById);
 
+
+/**
+ * @swagger
+ * /v1/note/recommend:
+ *  get:
+ *      summary: 列出推荐笔记
+ *      description: 列出推荐笔记
+ *      tags:
+ *        - Note
+ *      responses:
+ *          '200':
+ *              description: OK
+ */
+router.get(Paths.recommend, NoteController.recommend);
+
 /**
  * @swagger
  * /v1/note/image:

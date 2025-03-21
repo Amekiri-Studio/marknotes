@@ -110,8 +110,12 @@ class NoteService implements INoteService {
         }
     }
 
-    async getNoteByIds(nids: Array<any> | any) {
-        
+    async getNoteByIds(nids: Array<any> | any, isShare: boolean = true) {
+        return await this.noteRepository.getNoteByIds(nids, isShare);
+    }
+
+    async listNotes() {
+        return await this.noteRepository.listNotes();
     }
 }
 

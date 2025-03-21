@@ -335,6 +335,27 @@ class NoteController {
         }
     }
 
+    static async recommend(req: IReq, res: IRes) {
+        try {
+            await NoteController.createService();
+
+            const notes = await NoteController.noteService.listNotes();
+
+            res.json({
+                code: RetCode.SUCCESS,
+                message: 'OK',
+                data: notes
+            })
+        } catch (error) {
+            console.error(error);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                code: RetCode.INTERNAL_SERVER_ERROR,
+                message: error.message,
+                data: error
+            })
+        }
+    }
+
     static async uploadImage(req: IReq, res: IRes) {
         try {
             const tokenPayload: any = await NoteController.verifyUserLoginAuth(req, res);
