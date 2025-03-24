@@ -26,7 +26,8 @@ class TagService implements ITagService {
     }
 
     async listTagWithNote(tagName: string | any) {
-        const noteIds = await this.tagRepository.listTagWithNote(tagName);
+        const noteBody = await this.tagRepository.listTagWithNote(tagName);
+        const noteIds = noteBody.map((item: any) => item.associatedNote);
         if (!this.noteService) {
             this.noteService = await NoteService.createService();
         }
